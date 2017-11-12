@@ -9,9 +9,9 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.ScreenManager;
-import com.mcslocation.saveutils.SystemUtils;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.ScreenManager;
+import com.mcslocation.save.utils.SystemUtils;
 
 
 /**1像素Activity

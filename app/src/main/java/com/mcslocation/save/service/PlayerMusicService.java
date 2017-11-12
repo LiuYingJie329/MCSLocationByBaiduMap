@@ -1,4 +1,4 @@
-package com.mcslocation.saveservice;
+package com.mcslocation.save.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.util.Log;
 
 
 import com.mcslocation.R;
-import com.mcslocation.saveutils.Contants;
+import com.mcslocation.save.utils.Contants;
 
 /**循环播放一段无声音频，以提升进程优先级
  *

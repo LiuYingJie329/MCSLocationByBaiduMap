@@ -103,21 +103,21 @@
         <!-- 反馈组件 END -->
 
         <!--注册Service-->
-        <service android:name=".saveservice.DaemonService"
+        <service android:name=".save.service.DaemonService"
             android:enabled="true"
             android:exported="true"
             android:process=":daemon_service"/>
 
-        <service android:name=".saveservice.CancelNoticeService"
+        <service android:name=".save.service.CancelNoticeService"
             android:enabled="true"
             android:exported="true"
             android:process=":service"/>
-        <service android:name=".saveservice.PlayerMusicService"
+        <service android:name=".save.service.PlayerMusicService"
             android:enabled="true"
             android:exported="true"
             android:process=":music_service"/>
         <service
-            android:name=".saveservice.AliveJobService"
+            android:name=".save.service.AliveJobService"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
 
         <!--接收系统广播接收器-->

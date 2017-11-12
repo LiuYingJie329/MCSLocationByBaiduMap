@@ -1,4 +1,4 @@
-package com.mcslocation.saveutils;
+package com.mcslocation.save.utils;
 
 import android.app.Activity;
 import android.content.Context;

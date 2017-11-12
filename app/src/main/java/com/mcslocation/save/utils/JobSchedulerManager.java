@@ -1,4 +1,4 @@
-package com.mcslocation.saveutils;
+package com.mcslocation.save.utils;
 
 import android.annotation.TargetApi;
 import android.app.job.JobInfo;
@@ -7,7 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
 
-import com.mcslocation.saveservice.AliveJobService;
+import com.mcslocation.save.service.AliveJobService;
 
 
 /**JobScheduler管理类，单例模式

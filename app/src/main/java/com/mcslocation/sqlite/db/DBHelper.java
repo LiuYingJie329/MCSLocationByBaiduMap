@@ -1,4 +1,4 @@
-package com.mcslocation.sqlitedb;
+package com.mcslocation.sqlite.db;
 
 import android.content.ContentValues;
 import android.content.Context;

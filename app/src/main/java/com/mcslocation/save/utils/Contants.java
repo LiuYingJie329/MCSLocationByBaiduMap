@@ -1,4 +1,4 @@
-package com.mcslocation.saveutils;
+package com.mcslocation.save.utils;
 
 /**全局常量
  *

@@ -1,4 +1,4 @@
-package com.mcslocation.savereceiver;
+package com.mcslocation.save.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

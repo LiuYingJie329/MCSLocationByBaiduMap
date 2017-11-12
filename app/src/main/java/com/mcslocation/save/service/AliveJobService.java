@@ -1,4 +1,4 @@
-package com.mcslocation.saveservice;
+package com.mcslocation.save.service;
 
 import android.annotation.TargetApi;
 import android.app.Service;
@@ -8,11 +8,10 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.mcslocation.activity.MainActivity;
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.SystemUtils;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.SystemUtils;
 
 /**JobService，支持5.0以上forcestop依然有效
  *

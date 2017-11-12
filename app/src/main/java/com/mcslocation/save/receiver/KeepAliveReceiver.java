@@ -1,4 +1,4 @@
-package com.mcslocation.savereceiver;
+package com.mcslocation.save.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.mcslocation.activity.MainActivity;
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.SystemUtils;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.SystemUtils;
 
 /** 监听系统广播，复活进程
  *  (1) 网络变化广播

@@ -3,6 +3,7 @@ package com.mcslocation.application;
 import android.app.Application;
 import android.app.Service;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Vibrator;
 
 import com.avos.avoscloud.AVOSCloud;
@@ -10,8 +11,12 @@ import com.baidu.mapapi.SDKInitializer;
 import com.marswin89.marsdaemon.DaemonApplication;
 import com.marswin89.marsdaemon.DaemonClient;
 import com.marswin89.marsdaemon.DaemonConfigurations;
+import com.mcslocation.DaoMaster;
+import com.mcslocation.DaoSession;
 import com.mcslocation.mapservice.BaiduMapLocationService;
 import com.vondear.rxtools.RxTool;
+
+import org.greenrobot.greendao.database.Database;
 
 
 /**
@@ -23,6 +28,8 @@ public class MapBaseApplication extends Application {
     public BaiduMapLocationService locationService;
     public Vibrator mVibrator;
     private DaemonClient daemonClient;
+    private DaoSession daoSession;
+    public static final boolean ENCRYPTED = false;//是否创建加密数据库
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,9 +41,34 @@ public class MapBaseApplication extends Application {
         locationService = new BaiduMapLocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(this);
-
         //RxTools
         RxTool.init(this);
+        //GreenDao配置数据库
+       setupDatabase("mapdetails.db");
+    }
+
+    /*配置数据库
+    * */
+    private void setupDatabase(String str) {
+        //初始化GreenDao
+        //创建数据库，参数1：上下文，参数2：库名，参数3：游标工厂
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, str, null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        //实例化DaoMaster对象
+        DaoMaster daoMaster = new DaoMaster(db);
+        //实例化DaoSession对象
+        daoSession = daoMaster.newSession();
+    }
+
+    //加密方式创建数据库
+    private void setupdatabase(){
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, ENCRYPTED ? "notes-db-encrypted" : "user-db");
+        Database db = ENCRYPTED ? helper.getEncryptedWritableDb("super-secret") : helper.getWritableDb();
+        daoSession = new DaoMaster(db).newSession();
+    }
+
+    public DaoSession getDaoInstance() {
+        return daoSession;
     }
 
     public MapBaseApplication(){
@@ -71,6 +103,8 @@ public class MapBaseApplication extends Application {
         DaemonConfigurations.DaemonListener listener = new MyDaemonListener();
         return new DaemonConfigurations(configuration1,configuration2,listener);
     }
+
+    
 
     class MyDaemonListener implements DaemonConfigurations.DaemonListener{
 

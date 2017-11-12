@@ -13,12 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mcslocation.R;
-import com.mcslocation.savereceiver.ScreenReceiverUtil;
-import com.mcslocation.saveservice.DaemonService;
-import com.mcslocation.saveservice.PlayerMusicService;
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.JobSchedulerManager;
-import com.mcslocation.saveutils.ScreenManager;
+import com.mcslocation.save.receiver.ScreenReceiverUtil;
+import com.mcslocation.save.service.DaemonService;
+import com.mcslocation.save.service.PlayerMusicService;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.JobSchedulerManager;
+import com.mcslocation.save.utils.ScreenManager;
 
 import java.util.Timer;
 import java.util.TimerTask;

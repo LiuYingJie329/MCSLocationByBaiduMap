@@ -1,4 +1,4 @@
-package com.mcslocation.graysave;
+package com.mcslocation.save.gray;
 
 import android.app.AlarmManager;
 import android.app.Notification;

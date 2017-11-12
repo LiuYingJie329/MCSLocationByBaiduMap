@@ -1,4 +1,4 @@
-package com.mcslocation.saveservice;
+package com.mcslocation.save.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.mcslocation.R;
-import com.mcslocation.saveutils.Contants;
+import com.mcslocation.save.utils.Contants;
 
 
 /**前台Service，使用startForeground

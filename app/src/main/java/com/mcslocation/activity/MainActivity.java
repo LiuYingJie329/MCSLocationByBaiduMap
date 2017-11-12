@@ -6,26 +6,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.SaveCallback;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.Poi;
 import com.mcslocation.R;
 import com.mcslocation.application.MapBaseApplication;
 import com.mcslocation.mapservice.BaiduMapLocationService;
-import com.mcslocation.savereceiver.KeepAliveReceiver2;
-import com.mcslocation.savereceiver.ScreenReceiverUtil;
-import com.mcslocation.saveservice.DaemonService;
-import com.mcslocation.saveservice.PlayerMusicService;
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.JobSchedulerManager;
-import com.mcslocation.saveutils.ScreenManager;
+import com.mcslocation.save.receiver.KeepAliveReceiver2;
+import com.mcslocation.save.receiver.ScreenReceiverUtil;
+import com.mcslocation.save.service.DaemonService;
+import com.mcslocation.save.service.PlayerMusicService;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.JobSchedulerManager;
+import com.mcslocation.save.utils.ScreenManager;
 import com.mcslocation.tools.CheckPermissionsActivity;
-import com.mcslocation.tools.RxDeviceTool;
 import com.mcslocation.tools.TimeFormatUtils;
 import com.vondear.rxtools.RxBroadcastTool;
+import com.vondear.rxtools.RxDeviceTool;
+import com.vondear.rxtools.RxNetTool;
 
 /*
  *单点定位
@@ -229,7 +227,8 @@ public class MainActivity extends CheckPermissionsActivity {
                         sb.append(poi.getName() + ";");
                     }
                 }
-                if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                if (location.getLocType() == BDLocation.TypeGpsLocation) {
+                    // GPS定位结果
                     sb.append("\nGPS定位速度 : ");
                     sb.append(location.getSpeed());// 速度 单位：km/h
                     sb.append("\n卫星数目 : ");
@@ -240,7 +239,8 @@ public class MainActivity extends CheckPermissionsActivity {
                     sb.append(location.getGpsAccuracyStatus());// *****gps质量判断*****
                     sb.append("\ndescribe : ");
                     sb.append("gps定位成功");
-                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
+                    // 网络定位结果
                     // 运营商信息
                     if (location.hasAltitude()) {// *****如果有海拔高度*****
                         sb.append("\nheight : ");
@@ -250,7 +250,8 @@ public class MainActivity extends CheckPermissionsActivity {
                     sb.append(location.getOperators());
                     sb.append("\ndescribe : ");
                     sb.append("网络定位成功");
-                } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
+                    // 离线定位结果
                     sb.append("\ndescribe : ");
                     sb.append("离线定位成功，离线定位结果也是有效的");
                 } else if (location.getLocType() == BDLocation.TypeServerError) {
@@ -265,6 +266,7 @@ public class MainActivity extends CheckPermissionsActivity {
                 }
                 Toast.makeText(getApplicationContext(),"定位成功",Toast.LENGTH_SHORT).show();
                 Log.i(TAG,"MCS-->MainActivity-->定位结果："+sb.toString());
+
             }
         }
     };

@@ -1,4 +1,4 @@
-package com.mcslocation.saveservice;
+package com.mcslocation.save.service;
 
 import android.app.Notification;
 import android.app.NotificationManager;

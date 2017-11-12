@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply greendao plugin
 
 android {
     signingConfigs {
@@ -24,7 +25,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
     buildTypes {
         release {
@@ -43,17 +43,21 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             //debug模式无需混淆 因此false
             minifyEnabled false
-
             zipAlignEnabled true
-
             shrinkResources true
-
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
             signingConfig signingConfigs.debug
         }
 
     }
+    //greendao配置
+    greendao {
+        //版本号，升级时可配置
+        schemaVersion 1
+        daoPackage 'com.mcslocation'//自己包名
+        targetGenDir 'src/main/java'
+    }
+
     //leancloud为了解决部分第三方库重复打包了META-INF的问题
     packagingOptions{
         exclude 'META-INF/LICENSE.txt'
@@ -96,6 +100,8 @@ dependencies {
     compile 'cn.leancloud.android:avoscloud-search:v4.4.4@aar'
     //RxTools
     compile 'com.github.vondear:RxTools:v1.7.6.2'
+    //GreenDao
+    compile 'org.greenrobot:greendao:3.2.2' // add geendao library
     testCompile 'junit:junit:4.12'
     compile files('libs/BaiduLBS_Android.jar')
 }

@@ -1,4 +1,4 @@
-package com.mcslocation.savereceiver;
+package com.mcslocation.save.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -8,8 +8,8 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 
 import com.mcslocation.activity.MainActivity;
-import com.mcslocation.saveutils.Contants;
-import com.mcslocation.saveutils.SystemUtils;
+import com.mcslocation.save.utils.Contants;
+import com.mcslocation.save.utils.SystemUtils;
 import com.vondear.rxtools.RxBroadcastTool;
 import com.vondear.rxtools.RxNetTool;
 
