@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.mcslocation.activity.MainActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="110dp"
+        android:layout_marginTop="110dp"
+        android:layout_gravity="center"
+        android:background="@mipmap/location_light">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_quit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/login_btn_marginright"
+        android:layout_marginLeft="@dimen/login_btn_marginleft"
+        android:layout_marginTop="@dimen/login_margintop"
+        android:background="@drawable/btn_login_bg"
+        android:text="@string/activity_login_et_btn_login"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_edit_hint" />
+</LinearLayout>

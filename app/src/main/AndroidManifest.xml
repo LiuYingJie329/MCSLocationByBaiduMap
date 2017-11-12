@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mcslocation">
+    <!-- Normal Permissions 不需要运行时注册 -->
+    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <!-- 请求网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 不是SDK需要的权限，是示例中的后台唤醒定位需要的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 需要运行时注册的权限 -->
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--用于提高GPS定位速度-->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!--读取缓存数据-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 更改设置 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 3.2.0版本增加 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <application
+        android:name=".application.MapBaseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        tools:replace="android:icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--百度地图定位Start-->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="3soh2bAY8ErCCHQbuubk9jHHiet7agmN" />  <!--http://lbsyun.baidu.com/apiconsole/key-->
+        <!-- meta-data需要写在application中 -->
+        <!--百度地图定位End-->
+
+        <!-- leanCloud实时通信模块、推送（均需要加入以下声明） START -->
+        <!-- 实时通信模块、推送都要使用 PushService -->
+        <service android:name="com.avos.avoscloud.PushService"/>
+        <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <!-- 实时通信模块、推送 END -->
+        <!--排除在RecentTask中显示
+                 不能使用android:process=":live"
+                        android:enable="false"属性
+                 -->
+        <activity android:name=".activity.SinglePixelActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation|keyboard"
+            android:excludeFromRecents="true"
+            android:finishOnTaskLaunch="false"
+            android:launchMode="singleInstance"
+            android:theme="@style/SingleActivityStyle"/>
+
+        <!-- 反馈组件（需要加入以下声明）START -->
+        <activity
+            android:name="com.avos.avoscloud.feedback.ThreadActivity" >
+        </activity>
+        <!-- 反馈组件 END -->
+
+        <!--注册Service-->
+        <service android:name=".saveservice.DaemonService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":daemon_service"/>
+
+        <service android:name=".saveservice.CancelNoticeService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":service"/>
+        <service android:name=".saveservice.PlayerMusicService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":music_service"/>
+        <service
+            android:name=".saveservice.AliveJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+
+        <!--接收系统广播接收器-->
+        <receiver android:name=".savereceiver.KeepAliveReceiver">
+            <!--设备重启广播-->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!--安装或卸载广播-->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <!--解锁广播-->
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_USER_PRESENT"/>
+            </intent-filter>
+            <!--存储卡挂载广播-->
+            <intent-filter >
+                <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+                <action android:name="android.intent.action.MEDIA_UNMOUNTED"/>
+                <data android:scheme="file">
+                </data>
+            </intent-filter>
+            <!--网络状态广播-->
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <!--华为推送-->
+        <!-- 第三方相关 :接收Push消息（注册、Push消息、Push连接状态、标签，LBS上报结果）广播 -->
+        <receiver android:name=".savereceiver.MyHwPushReceiver" >
+            <intent-filter>
+                <!-- 必须,用于接收token-->
+                <action android:name="com.huawei.android.push.intent.REGISTRATION" />
+                <!-- 必须，用于接收消息-->
+                <action android:name="com.huawei.android.push.intent.RECEIVE" />
+                <!-- 可选，用于点击通知栏或通知栏上的按钮后触发onEvent回调-->
+                <action android:name="com.huawei.android.push.intent.CLICK" />
+                <!-- 可选，查看push通道是否连接，不查看则不需要-->
+                <action android:name="com.huawei.intent.action.PUSH_STATE" />
+                <!-- 可选，标签、地理位置上报回应，不上报则不需要 -->
+                <action android:name="com.huawei.android.push.plugin.RESPONSE" />
+            </intent-filter>
+            <meta-data android:name="CS_cloud_ablitity" android:value="@string/hwpush_ability_value"/>
+        </receiver>
+
+        <!-- 备注：Push相关的android组件需要添加到业务的AndroidManifest.xml,
+        	 Push相关android组件运行在另外一个进程是为了防止Push服务异常而影响主业务 -->
+
+        <!-- PushSDK:PushSDK接收外部请求事件入口 -->
+        <receiver
+            android:name="com.huawei.android.pushagent.PushEventReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REFRESH_PUSH_CHANNEL" />
+                <action android:name="com.huawei.intent.action.PUSH" />
+                <action android:name="com.huawei.intent.action.PUSH_ON" />
+                <action android:name="com.huawei.android.push.PLUGIN" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.huawei.android.pushagent.PushBootReceiver"
+            android:process=":pushservice" >
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.REGISTER" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <meta-data
+                android:name="CS_cloud_version"
+                android:value="\u0032\u0037\u0030\u0035" />
+        </receiver>
+
+        <!-- PushSDK:Push服务 -->
+        <service
+            android:name="com.huawei.android.pushagent.PushService"
+            android:process=":pushservice" >
+        </service>
+
+        <!-- PushSDK:富媒体呈现页面，用于呈现服务器下发的富媒体消息 -->
+        <!-- locale|layoutDirection 切换语言后不重新创建activity -->
+        <activity
+            android:name="com.huawei.android.pushselfshow.richpush.RichPushActivity"
+            android:process=":pushservice"
+            android:theme="@style/hwpush_NoActionBar"
+            android:configChanges="orientation|screenSize|locale|layoutDirection"
+            android:screenOrientation="portrait">
+            <meta-data android:name="hwc-theme"
+                android:value="androidhwext:style/Theme.Emui"/>
+            <intent-filter>
+                <action android:name="com.huawei.android.push.intent.RICHPUSH" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.huawei.android.pushselfshow.permission.RequestPermissionsActivity"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.NoActionBar"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize|locale|layoutDirection"
+            android:exported="false">
+        </activity>
+
+        <!-- 前台服务 -->
+        <service
+            android:name="com.mcslocation.save.frontService"
+            android:enabled="true"
+            android:label="@string/app_name"
+            android:persistent="true"
+            android:priority="1001"
+            android:process=":process1">
+        </service>
+        <receiver android:name="com.mcslocation.save.frontReceiver1" android:process=":process1"/>
+        <service android:name="com.mcslocation.save.frontService2"
+            android:enabled="true"
+            android:process=":process2"/>
+        <receiver android:name="com.mcslocation.save.frontReceiver2" android:process=":process2"/>
+
+        <!--灰色保活-->
+        <!--<receiver
+            android:name="com.liuyingjie.maplocation.graysave.WakeReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.wake.gray" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name="com.liuyingjie.maplocation.graysave.GrayService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":gray" />
+        <service
+            android:name="com.liuyingjie.maplocation.graysave.GrayService$GrayInnerService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":gray" />
+        <service
+            android:name="com.liuyingjie.maplocation.graysave.WakeReceiver$WakeNotifyService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <service
+            android:name="com.liuyingjie.maplocation.graysave.WakeReceiver$WakeGrayInnerService"
+            android:enabled="true"
+            android:exported="false" />-->
+    </application>
+
+</manifest>

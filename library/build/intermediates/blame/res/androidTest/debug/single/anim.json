@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_bottom.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_bottom.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\success_mask_layout.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\success_mask_layout.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_in.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_fade_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\error_x_in.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\error_x_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_grow_fade_in_from_bottom.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_out.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_out.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_out_top.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_slide_out_top.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_fade_out.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_fade_out.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\error_frame_in.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\error_frame_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\modal_in.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\modal_in.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_shrink_fade_out_from_bottom.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\success_bow_roate.xml",
+        "source": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\bundles\\debug\\res\\anim\\success_bow_roate.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_exit.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_popup_exit.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_slide_in_top.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_slide_in_top.xml"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\abc_popup_enter.xml",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\anim\\abc_popup_enter.xml"
+    }
+]
