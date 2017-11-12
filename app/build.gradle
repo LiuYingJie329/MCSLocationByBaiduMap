@@ -94,6 +94,8 @@ dependencies {
     // 请手动下载新浪微博 SDK 的 jar 包，将其放在 libs 目录下进行集成
     // LeanCloud 应用内搜索包
     compile 'cn.leancloud.android:avoscloud-search:v4.4.4@aar'
+    //RxTools
+    compile 'com.github.vondear:RxTools:v1.7.6.2'
     testCompile 'junit:junit:4.12'
     compile files('libs/BaiduLBS_Android.jar')
 }

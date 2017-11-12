@@ -15,6 +15,7 @@ import com.baidu.location.Poi;
 import com.mcslocation.R;
 import com.mcslocation.application.MapBaseApplication;
 import com.mcslocation.mapservice.BaiduMapLocationService;
+import com.mcslocation.savereceiver.KeepAliveReceiver2;
 import com.mcslocation.savereceiver.ScreenReceiverUtil;
 import com.mcslocation.saveservice.DaemonService;
 import com.mcslocation.saveservice.PlayerMusicService;
@@ -24,6 +25,7 @@ import com.mcslocation.saveutils.ScreenManager;
 import com.mcslocation.tools.CheckPermissionsActivity;
 import com.mcslocation.tools.RxDeviceTool;
 import com.mcslocation.tools.TimeFormatUtils;
+import com.vondear.rxtools.RxBroadcastTool;
 
 /*
  *单点定位
@@ -43,6 +45,7 @@ public class MainActivity extends CheckPermissionsActivity {
     private String phonename =null;
     private String phoneNumber = null;
 
+    private RxBroadcastTool.BroadcastReceiverNetWork broadcastReceiverNetWork;
     private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
         @Override
         public void onSreenOn() {
@@ -81,7 +84,6 @@ public class MainActivity extends CheckPermissionsActivity {
             mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
             mJobManager.startJobScheduler();
         }
-
         // 3. 华为推送保活，允许接收透传
 //        mHwPushManager = HwPushManager.getInstance(this);
 //        mHwPushManager.startRequestToken();
@@ -133,6 +135,20 @@ public class MainActivity extends CheckPermissionsActivity {
         //locationService.stop(); //停止定位
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //RxTools网络监测广播
+        broadcastReceiverNetWork = KeepAliveReceiver2.initRegisterReceiverNetWork(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //RxTools销毁广播
+        unregisterReceiver(broadcastReceiverNetWork);
     }
 
     private void stopPlayMusicService() {

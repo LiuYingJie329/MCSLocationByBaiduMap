@@ -41,6 +41,7 @@ public class KeepAliveReceiver extends BroadcastReceiver {
         intentAlive.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intentAlive);
         Log.i(TAG,"MCS-->KeepAliveReceiver-->AliveBroadcastReceiver---->复活进程(APP)");
+
     }
 
     private void getNetworkBroadcast(Context context, Intent intent){

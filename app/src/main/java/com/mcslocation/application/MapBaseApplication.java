@@ -11,6 +11,7 @@ import com.marswin89.marsdaemon.DaemonApplication;
 import com.marswin89.marsdaemon.DaemonClient;
 import com.marswin89.marsdaemon.DaemonConfigurations;
 import com.mcslocation.mapservice.BaiduMapLocationService;
+import com.vondear.rxtools.RxTool;
 
 
 /**
@@ -33,6 +34,9 @@ public class MapBaseApplication extends Application {
         locationService = new BaiduMapLocationService(getApplicationContext());
         mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
         SDKInitializer.initialize(this);
+
+        //RxTools
+        RxTool.init(this);
     }
 
     public MapBaseApplication(){
