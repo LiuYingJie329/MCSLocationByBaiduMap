@@ -1,0 +1,3 @@
+include ':app', ':Dialoglibrary', ':Marsdaemonlibary'
+project(':Dialoglibrary').projectDir = new File('library')
+project(':Marsdaemonlibary').projectDir = new File('Marsdaemon')
