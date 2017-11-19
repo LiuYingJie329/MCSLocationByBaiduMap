@@ -155,40 +155,10 @@ public class MainActivity extends CheckPermissionsActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case MainActivity.upload:
-                        mapdetails detail = (mapdetails) msg.obj;
-                        AVObject mapObject = new AVObject("MCSLocation");
-                        mapObject.put("Success",detail.getSuccess());
-                        mapObject.put("PhoneName",detail.getPhoneName()+"");
-                        mapObject.put("PhoneNumber",detail.getPhoneNumber()+"");
-                        mapObject.put("ClientTime",detail.getClientTime()+"");
-                        mapObject.put("ServerTime",detail.getServerTime()+"");
-                        mapObject.put("LocType",detail.getLocType()+"");
-                        mapObject.put("Latitude",detail.getLatitude()+"");
-                        mapObject.put("Longitude",detail.getLongitude()+"");
-                        mapObject.put("Radius",detail.getRadius()+"");
-                        mapObject.put("City",detail.getCity());
-                        mapObject.put("District",detail.getDistrict());
-                        mapObject.put("Street",detail.getStreet());
-                        mapObject.put("AddrStr",detail.getAddrStr());
-                        mapObject.put("UserIndoorState",detail.getUserIndoorState()+"");
-                        mapObject.put("LocationDescribe",detail.getLocationDescribe());
-                        mapObject.put("PoiList",detail.getPoiList());
-                        mapObject.put("Operators",detail.getOperators()+"");
-                        mapObject.put("describe",detail.getDescribe());
-                        mapObject.put("isNetAble",detail.getIsNetAble());
-                        mapObject.put("isWifiAble",detail.getIsWifiAble());
-                        mapObject.put("GPSStatus",detail.getGPSStatus());
-                        mapObject.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(AVException e) {
-                                if (e == null) {
-                                    RxToast.success("定位成功");
-                                    Log.e(TAG,"----->定位成功");
-                                    Log.e(TAG,"----->"+mapDao.count());
-                                    Log.e(TAG,"是否为当天---->"+ishow);
-                                }
-                            }
-                        });
+                        if(RxNetTool.isConnected(mContext)){
+                            mapdetails detail = (mapdetails) msg.obj;
+                            UpdataByNet(detail);
+                        }
                         break;
                     case quit:
                         AVObject Object = new AVObject("MCSLocation");
@@ -212,9 +182,54 @@ public class MainActivity extends CheckPermissionsActivity {
 
     }
 
-    private void upData(){
-        if(mapDao.count() != 0){
+    private void UpdataByNet(mapdetails detail){
+        AVObject mapObject = new AVObject("MCSLocation");
+        mapObject.put("Success",detail.getSuccess());
+        mapObject.put("PhoneName",detail.getPhoneName()+"");
+        mapObject.put("PhoneNumber",detail.getPhoneNumber()+"");
+        mapObject.put("DataTime",detail.getDataTime()+"");
+        mapObject.put("ClientTime",detail.getClientTime()+"");
+        mapObject.put("ServerTime",detail.getServerTime()+"");
+        mapObject.put("LocType",detail.getLocType()+"");
+        mapObject.put("Latitude",detail.getLatitude()+"");
+        mapObject.put("Longitude",detail.getLongitude()+"");
+        mapObject.put("Radius",detail.getRadius()+"");
+        mapObject.put("City",detail.getCity());
+        mapObject.put("District",detail.getDistrict());
+        mapObject.put("Street",detail.getStreet());
+        mapObject.put("AddrStr",detail.getAddrStr());
+        mapObject.put("UserIndoorState",detail.getUserIndoorState()+"");
+        mapObject.put("LocationDescribe",detail.getLocationDescribe());
+        mapObject.put("PoiList",detail.getPoiList());
+        mapObject.put("Operators",detail.getOperators()+"");
+        mapObject.put("describe",detail.getDescribe());
+        mapObject.put("isNetAble",detail.getIsNetAble());
+        mapObject.put("isWifiAble",detail.getIsWifiAble());
+        mapObject.put("GPSStatus",detail.getGPSStatus());
+        mapObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(AVException e) {
+                if (e == null) {
+                    RxToast.success("定位成功");
+                    Log.e(TAG,"----->定位成功");
+                    Log.e(TAG,"----->"+mapDao.count());
+                }
+            }
+        });
 
+    }
+
+    //今天第一次登陆，上传昨天的数据？？
+    private void upData(){
+        boolean isshow = isTodayFirstLogin();
+        if(isshow && mapDao.count() != 0){
+            //获取今天的数据
+            //List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getCurrentTime_Y_M_d())).build().list();
+            //获取昨天的数据
+            List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getYesterdayTime_Y_M_d())).build().list();
+            for(mapdetails data : list){
+                UpdataByNet(data);
+            }
         }
     }
     @Override

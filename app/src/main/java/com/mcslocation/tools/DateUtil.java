@@ -1,5 +1,7 @@
 package com.mcslocation.tools;
 
+import android.support.annotation.Nullable;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,7 +48,7 @@ public class DateUtil {
      * @param isNextDay 是否是后一天
      * @return 返回 年-月-日
      */
-    public static String getCurrentTime_Y_M_d(boolean isNextDay) {
+    public static String getCurrentNextTime_Y_M_d(boolean isNextDay) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Calendar calendar = Calendar.getInstance();
         if (isNextDay)

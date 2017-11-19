@@ -28,24 +28,25 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         public final static Property Success = new Property(1, String.class, "Success", false, "SUCCESS");
         public final static Property PhoneName = new Property(2, String.class, "PhoneName", false, "PHONE_NAME");
         public final static Property PhoneNumber = new Property(3, String.class, "PhoneNumber", false, "PHONE_NUMBER");
-        public final static Property ClientTime = new Property(4, String.class, "ClientTime", false, "CLIENT_TIME");
-        public final static Property ServerTime = new Property(5, String.class, "ServerTime", false, "SERVER_TIME");
-        public final static Property LocType = new Property(6, int.class, "LocType", false, "LOC_TYPE");
-        public final static Property Latitude = new Property(7, double.class, "Latitude", false, "LATITUDE");
-        public final static Property Longitude = new Property(8, double.class, "Longitude", false, "LONGITUDE");
-        public final static Property Radius = new Property(9, float.class, "Radius", false, "RADIUS");
-        public final static Property City = new Property(10, String.class, "City", false, "CITY");
-        public final static Property District = new Property(11, String.class, "District", false, "DISTRICT");
-        public final static Property Street = new Property(12, String.class, "Street", false, "STREET");
-        public final static Property AddrStr = new Property(13, String.class, "AddrStr", false, "ADDR_STR");
-        public final static Property UserIndoorState = new Property(14, int.class, "UserIndoorState", false, "USER_INDOOR_STATE");
-        public final static Property LocationDescribe = new Property(15, String.class, "LocationDescribe", false, "LOCATION_DESCRIBE");
-        public final static Property PoiList = new Property(16, String.class, "PoiList", false, "POI_LIST");
-        public final static Property Operators = new Property(17, int.class, "Operators", false, "OPERATORS");
-        public final static Property Describe = new Property(18, String.class, "describe", false, "DESCRIBE");
-        public final static Property IsNetAble = new Property(19, String.class, "isNetAble", false, "IS_NET_ABLE");
-        public final static Property IsWifiAble = new Property(20, String.class, "isWifiAble", false, "IS_WIFI_ABLE");
-        public final static Property GPSStatus = new Property(21, String.class, "GPSStatus", false, "GPSSTATUS");
+        public final static Property DataTime = new Property(4, String.class, "DataTime", false, "DATA_TIME");
+        public final static Property ClientTime = new Property(5, String.class, "ClientTime", false, "CLIENT_TIME");
+        public final static Property ServerTime = new Property(6, String.class, "ServerTime", false, "SERVER_TIME");
+        public final static Property LocType = new Property(7, int.class, "LocType", false, "LOC_TYPE");
+        public final static Property Latitude = new Property(8, double.class, "Latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(9, double.class, "Longitude", false, "LONGITUDE");
+        public final static Property Radius = new Property(10, float.class, "Radius", false, "RADIUS");
+        public final static Property City = new Property(11, String.class, "City", false, "CITY");
+        public final static Property District = new Property(12, String.class, "District", false, "DISTRICT");
+        public final static Property Street = new Property(13, String.class, "Street", false, "STREET");
+        public final static Property AddrStr = new Property(14, String.class, "AddrStr", false, "ADDR_STR");
+        public final static Property UserIndoorState = new Property(15, int.class, "UserIndoorState", false, "USER_INDOOR_STATE");
+        public final static Property LocationDescribe = new Property(16, String.class, "LocationDescribe", false, "LOCATION_DESCRIBE");
+        public final static Property PoiList = new Property(17, String.class, "PoiList", false, "POI_LIST");
+        public final static Property Operators = new Property(18, int.class, "Operators", false, "OPERATORS");
+        public final static Property Describe = new Property(19, String.class, "describe", false, "DESCRIBE");
+        public final static Property IsNetAble = new Property(20, String.class, "isNetAble", false, "IS_NET_ABLE");
+        public final static Property IsWifiAble = new Property(21, String.class, "isWifiAble", false, "IS_WIFI_ABLE");
+        public final static Property GPSStatus = new Property(22, String.class, "GPSStatus", false, "GPSSTATUS");
     }
 
 
@@ -65,24 +66,25 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
                 "\"SUCCESS\" TEXT," + // 1: Success
                 "\"PHONE_NAME\" TEXT," + // 2: PhoneName
                 "\"PHONE_NUMBER\" TEXT," + // 3: PhoneNumber
-                "\"CLIENT_TIME\" TEXT," + // 4: ClientTime
-                "\"SERVER_TIME\" TEXT," + // 5: ServerTime
-                "\"LOC_TYPE\" INTEGER NOT NULL ," + // 6: LocType
-                "\"LATITUDE\" REAL NOT NULL ," + // 7: Latitude
-                "\"LONGITUDE\" REAL NOT NULL ," + // 8: Longitude
-                "\"RADIUS\" REAL NOT NULL ," + // 9: Radius
-                "\"CITY\" TEXT," + // 10: City
-                "\"DISTRICT\" TEXT," + // 11: District
-                "\"STREET\" TEXT," + // 12: Street
-                "\"ADDR_STR\" TEXT," + // 13: AddrStr
-                "\"USER_INDOOR_STATE\" INTEGER NOT NULL ," + // 14: UserIndoorState
-                "\"LOCATION_DESCRIBE\" TEXT," + // 15: LocationDescribe
-                "\"POI_LIST\" TEXT," + // 16: PoiList
-                "\"OPERATORS\" INTEGER NOT NULL ," + // 17: Operators
-                "\"DESCRIBE\" TEXT," + // 18: describe
-                "\"IS_NET_ABLE\" TEXT," + // 19: isNetAble
-                "\"IS_WIFI_ABLE\" TEXT," + // 20: isWifiAble
-                "\"GPSSTATUS\" TEXT);"); // 21: GPSStatus
+                "\"DATA_TIME\" TEXT," + // 4: DataTime
+                "\"CLIENT_TIME\" TEXT," + // 5: ClientTime
+                "\"SERVER_TIME\" TEXT," + // 6: ServerTime
+                "\"LOC_TYPE\" INTEGER NOT NULL ," + // 7: LocType
+                "\"LATITUDE\" REAL NOT NULL ," + // 8: Latitude
+                "\"LONGITUDE\" REAL NOT NULL ," + // 9: Longitude
+                "\"RADIUS\" REAL NOT NULL ," + // 10: Radius
+                "\"CITY\" TEXT," + // 11: City
+                "\"DISTRICT\" TEXT," + // 12: District
+                "\"STREET\" TEXT," + // 13: Street
+                "\"ADDR_STR\" TEXT," + // 14: AddrStr
+                "\"USER_INDOOR_STATE\" INTEGER NOT NULL ," + // 15: UserIndoorState
+                "\"LOCATION_DESCRIBE\" TEXT," + // 16: LocationDescribe
+                "\"POI_LIST\" TEXT," + // 17: PoiList
+                "\"OPERATORS\" INTEGER NOT NULL ," + // 18: Operators
+                "\"DESCRIBE\" TEXT," + // 19: describe
+                "\"IS_NET_ABLE\" TEXT," + // 20: isNetAble
+                "\"IS_WIFI_ABLE\" TEXT," + // 21: isWifiAble
+                "\"GPSSTATUS\" TEXT);"); // 22: GPSStatus
     }
 
     /** Drops the underlying database table. */
@@ -115,70 +117,75 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
             stmt.bindString(4, PhoneNumber);
         }
  
+        String DataTime = entity.getDataTime();
+        if (DataTime != null) {
+            stmt.bindString(5, DataTime);
+        }
+ 
         String ClientTime = entity.getClientTime();
         if (ClientTime != null) {
-            stmt.bindString(5, ClientTime);
+            stmt.bindString(6, ClientTime);
         }
  
         String ServerTime = entity.getServerTime();
         if (ServerTime != null) {
-            stmt.bindString(6, ServerTime);
+            stmt.bindString(7, ServerTime);
         }
-        stmt.bindLong(7, entity.getLocType());
-        stmt.bindDouble(8, entity.getLatitude());
-        stmt.bindDouble(9, entity.getLongitude());
-        stmt.bindDouble(10, entity.getRadius());
+        stmt.bindLong(8, entity.getLocType());
+        stmt.bindDouble(9, entity.getLatitude());
+        stmt.bindDouble(10, entity.getLongitude());
+        stmt.bindDouble(11, entity.getRadius());
  
         String City = entity.getCity();
         if (City != null) {
-            stmt.bindString(11, City);
+            stmt.bindString(12, City);
         }
  
         String District = entity.getDistrict();
         if (District != null) {
-            stmt.bindString(12, District);
+            stmt.bindString(13, District);
         }
  
         String Street = entity.getStreet();
         if (Street != null) {
-            stmt.bindString(13, Street);
+            stmt.bindString(14, Street);
         }
  
         String AddrStr = entity.getAddrStr();
         if (AddrStr != null) {
-            stmt.bindString(14, AddrStr);
+            stmt.bindString(15, AddrStr);
         }
-        stmt.bindLong(15, entity.getUserIndoorState());
+        stmt.bindLong(16, entity.getUserIndoorState());
  
         String LocationDescribe = entity.getLocationDescribe();
         if (LocationDescribe != null) {
-            stmt.bindString(16, LocationDescribe);
+            stmt.bindString(17, LocationDescribe);
         }
  
         String PoiList = entity.getPoiList();
         if (PoiList != null) {
-            stmt.bindString(17, PoiList);
+            stmt.bindString(18, PoiList);
         }
-        stmt.bindLong(18, entity.getOperators());
+        stmt.bindLong(19, entity.getOperators());
  
         String describe = entity.getDescribe();
         if (describe != null) {
-            stmt.bindString(19, describe);
+            stmt.bindString(20, describe);
         }
  
         String isNetAble = entity.getIsNetAble();
         if (isNetAble != null) {
-            stmt.bindString(20, isNetAble);
+            stmt.bindString(21, isNetAble);
         }
  
         String isWifiAble = entity.getIsWifiAble();
         if (isWifiAble != null) {
-            stmt.bindString(21, isWifiAble);
+            stmt.bindString(22, isWifiAble);
         }
  
         String GPSStatus = entity.getGPSStatus();
         if (GPSStatus != null) {
-            stmt.bindString(22, GPSStatus);
+            stmt.bindString(23, GPSStatus);
         }
     }
 
@@ -206,70 +213,75 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
             stmt.bindString(4, PhoneNumber);
         }
  
+        String DataTime = entity.getDataTime();
+        if (DataTime != null) {
+            stmt.bindString(5, DataTime);
+        }
+ 
         String ClientTime = entity.getClientTime();
         if (ClientTime != null) {
-            stmt.bindString(5, ClientTime);
+            stmt.bindString(6, ClientTime);
         }
  
         String ServerTime = entity.getServerTime();
         if (ServerTime != null) {
-            stmt.bindString(6, ServerTime);
+            stmt.bindString(7, ServerTime);
         }
-        stmt.bindLong(7, entity.getLocType());
-        stmt.bindDouble(8, entity.getLatitude());
-        stmt.bindDouble(9, entity.getLongitude());
-        stmt.bindDouble(10, entity.getRadius());
+        stmt.bindLong(8, entity.getLocType());
+        stmt.bindDouble(9, entity.getLatitude());
+        stmt.bindDouble(10, entity.getLongitude());
+        stmt.bindDouble(11, entity.getRadius());
  
         String City = entity.getCity();
         if (City != null) {
-            stmt.bindString(11, City);
+            stmt.bindString(12, City);
         }
  
         String District = entity.getDistrict();
         if (District != null) {
-            stmt.bindString(12, District);
+            stmt.bindString(13, District);
         }
  
         String Street = entity.getStreet();
         if (Street != null) {
-            stmt.bindString(13, Street);
+            stmt.bindString(14, Street);
         }
  
         String AddrStr = entity.getAddrStr();
         if (AddrStr != null) {
-            stmt.bindString(14, AddrStr);
+            stmt.bindString(15, AddrStr);
         }
-        stmt.bindLong(15, entity.getUserIndoorState());
+        stmt.bindLong(16, entity.getUserIndoorState());
  
         String LocationDescribe = entity.getLocationDescribe();
         if (LocationDescribe != null) {
-            stmt.bindString(16, LocationDescribe);
+            stmt.bindString(17, LocationDescribe);
         }
  
         String PoiList = entity.getPoiList();
         if (PoiList != null) {
-            stmt.bindString(17, PoiList);
+            stmt.bindString(18, PoiList);
         }
-        stmt.bindLong(18, entity.getOperators());
+        stmt.bindLong(19, entity.getOperators());
  
         String describe = entity.getDescribe();
         if (describe != null) {
-            stmt.bindString(19, describe);
+            stmt.bindString(20, describe);
         }
  
         String isNetAble = entity.getIsNetAble();
         if (isNetAble != null) {
-            stmt.bindString(20, isNetAble);
+            stmt.bindString(21, isNetAble);
         }
  
         String isWifiAble = entity.getIsWifiAble();
         if (isWifiAble != null) {
-            stmt.bindString(21, isWifiAble);
+            stmt.bindString(22, isWifiAble);
         }
  
         String GPSStatus = entity.getGPSStatus();
         if (GPSStatus != null) {
-            stmt.bindString(22, GPSStatus);
+            stmt.bindString(23, GPSStatus);
         }
     }
 
@@ -285,24 +297,25 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // Success
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // PhoneName
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // PhoneNumber
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // ClientTime
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ServerTime
-            cursor.getInt(offset + 6), // LocType
-            cursor.getDouble(offset + 7), // Latitude
-            cursor.getDouble(offset + 8), // Longitude
-            cursor.getFloat(offset + 9), // Radius
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // City
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // District
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // Street
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // AddrStr
-            cursor.getInt(offset + 14), // UserIndoorState
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // LocationDescribe
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // PoiList
-            cursor.getInt(offset + 17), // Operators
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18), // describe
-            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // isNetAble
-            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // isWifiAble
-            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21) // GPSStatus
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // DataTime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // ClientTime
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // ServerTime
+            cursor.getInt(offset + 7), // LocType
+            cursor.getDouble(offset + 8), // Latitude
+            cursor.getDouble(offset + 9), // Longitude
+            cursor.getFloat(offset + 10), // Radius
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // City
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // District
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // Street
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // AddrStr
+            cursor.getInt(offset + 15), // UserIndoorState
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // LocationDescribe
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // PoiList
+            cursor.getInt(offset + 18), // Operators
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // describe
+            cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // isNetAble
+            cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // isWifiAble
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // GPSStatus
         );
         return entity;
     }
@@ -313,24 +326,25 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         entity.setSuccess(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPhoneName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setPhoneNumber(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setClientTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setServerTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setLocType(cursor.getInt(offset + 6));
-        entity.setLatitude(cursor.getDouble(offset + 7));
-        entity.setLongitude(cursor.getDouble(offset + 8));
-        entity.setRadius(cursor.getFloat(offset + 9));
-        entity.setCity(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setDistrict(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setStreet(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setAddrStr(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setUserIndoorState(cursor.getInt(offset + 14));
-        entity.setLocationDescribe(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setPoiList(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setOperators(cursor.getInt(offset + 17));
-        entity.setDescribe(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
-        entity.setIsNetAble(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
-        entity.setIsWifiAble(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
-        entity.setGPSStatus(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setDataTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setClientTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setServerTime(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setLocType(cursor.getInt(offset + 7));
+        entity.setLatitude(cursor.getDouble(offset + 8));
+        entity.setLongitude(cursor.getDouble(offset + 9));
+        entity.setRadius(cursor.getFloat(offset + 10));
+        entity.setCity(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setDistrict(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setStreet(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setAddrStr(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setUserIndoorState(cursor.getInt(offset + 15));
+        entity.setLocationDescribe(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setPoiList(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setOperators(cursor.getInt(offset + 18));
+        entity.setDescribe(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
+        entity.setIsNetAble(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
+        entity.setIsWifiAble(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
+        entity.setGPSStatus(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
      }
     
     @Override

@@ -18,6 +18,8 @@ public class mapdetails {
     private String PhoneName;
     //手机号码
     private String PhoneNumber;
+    //客户端时间
+    private String DataTime;
     //手机端请求服务器定位的时间
     private String ClientTime;
     //服务端出本次结果的时间:
@@ -54,17 +56,18 @@ public class mapdetails {
     private String isWifiAble;
     //GPS是否打开
     private String GPSStatus;
-    @Generated(hash = 741531125)
+    @Generated(hash = 2090556396)
     public mapdetails(Long id, String Success, String PhoneName, String PhoneNumber,
-            String ClientTime, String ServerTime, int LocType, double Latitude,
-            double Longitude, float Radius, String City, String District,
-            String Street, String AddrStr, int UserIndoorState,
+            String DataTime, String ClientTime, String ServerTime, int LocType,
+            double Latitude, double Longitude, float Radius, String City,
+            String District, String Street, String AddrStr, int UserIndoorState,
             String LocationDescribe, String PoiList, int Operators, String describe,
             String isNetAble, String isWifiAble, String GPSStatus) {
         this.id = id;
         this.Success = Success;
         this.PhoneName = PhoneName;
         this.PhoneNumber = PhoneNumber;
+        this.DataTime = DataTime;
         this.ClientTime = ClientTime;
         this.ServerTime = ServerTime;
         this.LocType = LocType;
@@ -218,6 +221,12 @@ public class mapdetails {
     }
     public void setGPSStatus(String GPSStatus) {
         this.GPSStatus = GPSStatus;
+    }
+    public String getDataTime() {
+        return this.DataTime;
+    }
+    public void setDataTime(String DataTime) {
+        this.DataTime = DataTime;
     }
 
 }
