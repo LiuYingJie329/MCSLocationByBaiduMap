@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/MCSLocationByBaiduMap.iml" filepath="$PROJECT_DIR$/MCSLocationByBaiduMap.iml" />
       <module fileurl="file://$PROJECT_DIR$/Marsdaemon/Marsdaemonlibary.iml" filepath="$PROJECT_DIR$/Marsdaemon/Marsdaemonlibary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hellodaemon/daemon.iml" filepath="$PROJECT_DIR$/hellodaemon/daemon.iml" />
     </modules>
   </component>
 </project>

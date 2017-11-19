@@ -2037,7 +2037,7 @@ containing a value of this type.
         public static int never=0x7f0a0020;
         public static int none=0x7f0a000e;
         public static int normal=0x7f0a000a;
-        public static int notification_background=0x7f0a0075;
+        public static int notification_background=0x7f0a0074;
         public static int notification_main_column=0x7f0a006f;
         public static int notification_main_column_container=0x7f0a006e;
         public static int parentPanel=0x7f0a0033;
@@ -2046,7 +2046,7 @@ containing a value of this type.
         public static int progress_dialog=0x7f0a0060;
         public static int progress_horizontal=0x7f0a0006;
         public static int radio=0x7f0a0041;
-        public static int right_icon=0x7f0a0074;
+        public static int right_icon=0x7f0a0075;
         public static int right_side=0x7f0a0070;
         public static int screen=0x7f0a0015;
         public static int scrollIndicatorDown=0x7f0a003b;

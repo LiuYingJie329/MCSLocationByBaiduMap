@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply greendao plugin
+apply plugin:'me.tatarka.retrolambda'
 
 android {
     signingConfigs {
@@ -20,7 +21,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.mcslocation"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -72,6 +73,10 @@ android {
             jniLibs.srcDirs =['libs']
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -98,10 +103,12 @@ dependencies {
     // 请手动下载新浪微博 SDK 的 jar 包，将其放在 libs 目录下进行集成
     // LeanCloud 应用内搜索包
     compile 'cn.leancloud.android:avoscloud-search:v4.4.4@aar'
-    //RxTools
-    compile 'com.github.vondear:RxTools:v1.7.6.2'
     //GreenDao
-    compile 'org.greenrobot:greendao:3.2.2' // add geendao library
+    compile 'org.greenrobot:greendao:3.2.2'
+    // add geendao library
     testCompile 'junit:junit:4.12'
+    compile 'io.reactivex.rxjava2:rxjava:2.+'
+
     compile files('libs/BaiduLBS_Android.jar')
+    compile project(':daemon')
 }

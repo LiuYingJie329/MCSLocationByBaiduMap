@@ -32,7 +32,7 @@ public class KeepAliveReceiver extends BroadcastReceiver {
         String action = intent.getAction();
         if(Contants.DEBUG)
             Log.d(TAG,"MCS-->KeepAliveReceiver-->AliveBroadcastReceiver---->接收到的系统广播："+action);
-        getNetworkBroadcast(context,intent);
+        //getNetworkBroadcast(context,intent);
         if(SystemUtils.isAppAlive(context,Contants.PACKAGE_NAME)){
             Log.i(TAG,"MCS-->KeepAliveReceiver-->AliveBroadcastReceiver---->APP还是活着的");
             return;

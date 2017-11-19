@@ -12,14 +12,14 @@ import org.greenrobot.greendao.query.QueryBuilder;
  * Created by ly on 2017/10/12.
  */
 
-public class DaoManager {
-    private static final String TAG = DaoManager.class.getSimpleName();
+public class MapDaoManager {
+    private static final String TAG = MapDaoManager.class.getSimpleName();
     private static final String DB_NAME = "greendaotest";
 
     private Context context;
 
     //多线程中要被共享的使用volatile关键字修饰
-    private volatile static DaoManager manager = new DaoManager();
+    private volatile static MapDaoManager manager = new MapDaoManager();
 
     private static DaoMaster sDaoMaster;
     private static DaoMaster.DevOpenHelper sHelper;
@@ -29,7 +29,7 @@ public class DaoManager {
      * 单例模式获得操作数据库对象
      * @return
      */
-    public static DaoManager getInstance(){
+    public static MapDaoManager getInstance(){
         return manager;
     }
 

@@ -1,8 +1,5 @@
-package com.mcslocation.tools;
+package com.mcslocation.tools.Rx;
 
-/**
- * Created by ly on 2017/11/12.
- */
 import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
@@ -11,15 +8,18 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 
-import com.vondear.rxtools.view.RxToast;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-public class RxNetUtils {
+
+/**
+ * Created by vonde on 2016/1/29.
+ */
+public class RxNetTool {
+
     public static final int NETWORK_NO = -1;   // no network
     public static final int NETWORK_WIFI = 1;    // wifi network
     public static final int NETWORK_2G = 2;    // "2G" networks
@@ -65,7 +65,7 @@ public class RxNetUtils {
             switch (ni.getType()) {//获取当前网络的状态
                 case ConnectivityManager.TYPE_WIFI:// wifi的情况下
                     netType = NETWORK_WIFI;
-                    RxToast.success("切换到wifi环境下");
+                    //RxToast.success("切换到wifi环境下");
                     break;
                 case ConnectivityManager.TYPE_MOBILE:
 
@@ -77,7 +77,7 @@ public class RxNetUtils {
                         case TelephonyManager.NETWORK_TYPE_1xRTT:
                         case TelephonyManager.NETWORK_TYPE_IDEN:
                             netType = NETWORK_2G;
-                            RxToast.info("切换到2G环境下");
+                            //RxToast.info("切换到2G环境下");
                             break;
                         case TelephonyManager.NETWORK_TYPE_EVDO_A: // 电信3g
                         case TelephonyManager.NETWORK_TYPE_UMTS:
@@ -90,13 +90,13 @@ public class RxNetUtils {
                         case TelephonyManager.NETWORK_TYPE_HSPAP:
                         case NETWORK_TYPE_TD_SCDMA:
                             netType = NETWORK_3G;
-                            RxToast.info("切换到3G环境下");
+                            //RxToast.info("切换到3G环境下");
                             break;
                         case TelephonyManager.NETWORK_TYPE_LTE:
 
                         case NETWORK_TYPE_IWLAN:
                             netType = NETWORK_4G;
-                            RxToast.info("切换到4G环境下");
+                            //RxToast.info("切换到4G环境下");
                             break;
                         default:
 
@@ -108,7 +108,7 @@ public class RxNetUtils {
                             } else {
                                 netType = NETWORK_UNKNOWN;
                             }
-                            RxToast.normal("未知网络");
+                            //RxToast.normal("未知网络");
                     }
                     break;
                 default:

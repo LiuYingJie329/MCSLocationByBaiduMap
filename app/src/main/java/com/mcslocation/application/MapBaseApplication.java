@@ -14,7 +14,13 @@ import com.marswin89.marsdaemon.DaemonConfigurations;
 import com.mcslocation.DaoMaster;
 import com.mcslocation.DaoSession;
 import com.mcslocation.mapservice.BaiduMapLocationService;
-import com.vondear.rxtools.RxTool;
+import com.mcslocation.mapservice.LocationService;
+import com.mcslocation.save.daemon.TraceServiceImpl;
+import com.mcslocation.save.frontService;
+import com.mcslocation.save.service.DaemonService;
+import com.mcslocation.save.service.PlayerMusicService;
+import com.mcslocation.tools.Rx.RxTool;
+import com.xdandroid.hellodaemon.DaemonEnv;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -34,17 +40,25 @@ public class MapBaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // 初始化参数依次为 this, AppId, AppKey
-        AVOSCloud.initialize(this,"og9iakzRMjvfAvgr3JDAaKJu-gzGzoHsz","31HdOiQbWLwevJ3VbYmQ4ByQ");
+        AVOSCloud.initialize(mapBaseApplicationInstance,"og9iakzRMjvfAvgr3JDAaKJu-gzGzoHsz","31HdOiQbWLwevJ3VbYmQ4ByQ");
         // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
         AVOSCloud.setDebugLogEnabled(true);
         /*初始化定位sdk*/
-        locationService = new BaiduMapLocationService(getApplicationContext());
-        mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-        SDKInitializer.initialize(this);
+        locationService = new BaiduMapLocationService(mapBaseApplicationInstance);
+        mVibrator =(Vibrator)mapBaseApplicationInstance.getSystemService(Service.VIBRATOR_SERVICE);
+        SDKInitializer.initialize(mapBaseApplicationInstance);
         //RxTools
-        RxTool.init(this);
+        RxTool.init(mapBaseApplicationInstance);
         //GreenDao配置数据库
-       setupDatabase("mapdetails.db");
+        setupDatabase("mapdetails.db");
+        //需要在 Application 的 onCreate() 中调用一次 DaemonEnv.initialize()
+        DaemonEnv.initialize(this, TraceServiceImpl.class, DaemonEnv.DEFAULT_WAKE_UP_INTERVAL);
+        TraceServiceImpl.sShouldStopService = false;
+        DaemonEnv.startServiceMayBind(TraceServiceImpl.class);
+        DaemonEnv.startServiceMayBind(DaemonService.class);
+        DaemonEnv.startServiceMayBind(PlayerMusicService.class);
+        DaemonEnv.startServiceMayBind(frontService.class);
+        DaemonEnv.startServiceMayBind(LocationService.class);
     }
 
     /*配置数据库

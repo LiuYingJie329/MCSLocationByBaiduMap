@@ -28,12 +28,12 @@
         "source": "C:\\Users\\ly\\.android\\build-cache\\978e7e6ae2f7a7e26477d163ebd53d1dabba5016\\output\\res\\drawable-hdpi-v4\\ic_launcher.png"
     },
     {
-        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
-        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
@@ -60,12 +60,12 @@
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_ic_star_black_16dp.png"
     },
     {
-        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
-        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
-    },
-    {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png",
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-hdpi-v4\\notification_bg_low_normal.9.png",

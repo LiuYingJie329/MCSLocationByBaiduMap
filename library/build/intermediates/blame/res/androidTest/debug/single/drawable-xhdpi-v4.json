@@ -12,12 +12,12 @@
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\notify_panel_notification_icon_bg.png"
     },
     {
-        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
-        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
-    },
-    {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
@@ -76,12 +76,12 @@
         "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
-        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
-    },
-    {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\ly\\.android\\build-cache\\978e7e6ae2f7a7e26477d163ebd53d1dabba5016\\output\\res\\drawable-xhdpi-v4\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
+        "source": "C:\\Users\\ly\\.android\\build-cache\\6100658b860df192cada499a1e3800ca1e662021\\output\\res\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
     },
     {
         "merged": "D:\\AndroidStudio_workspace\\MCSLocationByBaiduMap\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",

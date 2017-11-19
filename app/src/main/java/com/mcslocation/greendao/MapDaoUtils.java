@@ -13,12 +13,12 @@ import java.util.List;
  * Created by ly on 2017/10/12.
  */
 
-public class DaoUtils {
-    private static final String TAG = DaoUtils.class.getSimpleName();
-    private DaoManager mManager;
+public class MapDaoUtils {
+    private static final String TAG = MapDaoUtils.class.getSimpleName();
+    private MapDaoManager mManager;
 
-    public DaoUtils(Context context) {
-        mManager = DaoManager.getInstance();
+    public MapDaoUtils(Context context) {
+        mManager = MapDaoManager.getInstance();
         mManager.init(context);
     }
 
