@@ -67,6 +67,7 @@ public class MainActivity extends CheckPermissionsActivity {
     public static final int upload = 1;
     public static final int quit = 2;
     private long firstTime = 0;
+    private boolean UpDateFail =false ; //数据是否上传失败，true ,数据上传失败
     private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
         @Override
         public void onSreenOn() {
@@ -98,7 +99,8 @@ public class MainActivity extends CheckPermissionsActivity {
         //取
         SharedPreferences preferences = getSharedPreferences("LastLoginTime", MODE_PRIVATE);
         String lastTime = preferences.getString("LoginTime", "2017-11-19");
-        if (lastTime.equals(DateUtil.getCurrentTime_Y_M_d())) { //如果两个时间段相等
+        todayTime = DateUtil.getCurrentTime_Y_M_d();
+        if (lastTime.equals(todayTime)) { //如果两个时间段相等
             Log.e(TAG, "不是当日首次登陆");
             return false;
         } else {
@@ -149,16 +151,12 @@ public class MainActivity extends CheckPermissionsActivity {
                 }
             }
         });
-        boolean ishow = isTodayFirstLogin();
         mHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case MainActivity.upload:
-                        if(RxNetTool.isConnected(mContext)){
-                            mapdetails detail = (mapdetails) msg.obj;
-                            UpdataByNet(detail);
-                        }
+                        RxToast.success("定位成功");
                         break;
                     case quit:
                         AVObject Object = new AVObject("MCSLocation");
@@ -178,8 +176,6 @@ public class MainActivity extends CheckPermissionsActivity {
 
             }
         };
-
-
     }
 
     private void UpdataByNet(mapdetails detail){
@@ -210,28 +206,29 @@ public class MainActivity extends CheckPermissionsActivity {
             @Override
             public void done(AVException e) {
                 if (e == null) {
-                    RxToast.success("定位成功");
-                    Log.e(TAG,"----->定位成功");
-                    Log.e(TAG,"----->"+mapDao.count());
+                    RxToast.success("数据上传成功");
                 }
             }
         });
 
     }
 
-    //今天第一次登陆，上传昨天的数据？？
-    private void upData(){
+    //今天第一次登陆，上传昨天的数据
+    private void UpDateYesterdayData(){
         boolean isshow = isTodayFirstLogin();
-        if(isshow && mapDao.count() != 0){
+        List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getYesterdayTime_Y_M_d())).build().list();
+        Log.e(TAG,"------------>昨天的数据库的数量为："+list.size());
+        if(isshow && list.size() != 0){
+
             //获取今天的数据
             //List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getCurrentTime_Y_M_d())).build().list();
-            //获取昨天的数据
-            List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getYesterdayTime_Y_M_d())).build().list();
             for(mapdetails data : list){
                 UpdataByNet(data);
             }
         }
     }
+
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -240,9 +237,28 @@ public class MainActivity extends CheckPermissionsActivity {
         //RxTools网络监测广播
         broadcastReceiverNetWork = RxBroadcastTool.initRegisterReceiverNetWork(mContext);
 
-        boolean isshow = isTodayFirstLogin();
-        if(isshow && RxNetTool.isConnected(mContext)){
+        if(isTodayFirstLogin() && RxNetTool.isConnected(mContext)){
             IntentWrapper.whiteListMatters(this, "MCS实验系统持续运行");
+        }
+
+        //判断首次登录上传数据和数据首次登录是否上传成功
+
+
+        //今天首次登录
+        if(isTodayFirstLogin()){
+            Log.e(TAG,"--------->首次登录成功，上传昨天定位数据");
+            if(RxNetTool.isConnected(mContext)){
+                UpDateYesterdayData();
+            }else{
+                UpDateFail = true;
+                RxToast.error("数据上传失败,请打开网络,重启App,重新上传数据");
+            }
+        }
+
+        //首次登录没有成功上传数据
+        if((UpDateFail+"").toString().contains("true")){
+            Log.e(TAG,"--------->数据上传失败,重新上传昨天定位数据");
+            UpDateYesterdayData();
         }
 
     }
@@ -256,6 +272,7 @@ public class MainActivity extends CheckPermissionsActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        saveExitTime(todayTime);
     }
 
     @Override
@@ -269,7 +286,6 @@ public class MainActivity extends CheckPermissionsActivity {
     protected void onDestroy() {
         if (Contants.DEBUG)
             Log.d(TAG, "MCS-MainActivity-->onDestroy");
-        saveExitTime(todayTime);
         super.onDestroy();
     }
 
