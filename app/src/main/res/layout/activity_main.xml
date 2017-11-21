@@ -17,12 +17,24 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_updata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/login_btn_marginright"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="@dimen/login_btn_marginleft"
+        android:background="@drawable/btn_login_bg"
+        android:text="@string/activity_login_update"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_edit_hint" />
+
+    <Button
         android:id="@+id/btn_quit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/login_btn_marginright"
-        android:layout_marginLeft="@dimen/login_btn_marginleft"
-        android:layout_marginTop="@dimen/login_margintop"
+        android:layout_marginEnd="@dimen/login_btn_marginright"
+        android:layout_marginStart="@dimen/login_btn_marginleft"
+        android:layout_marginTop="40dp"
         android:background="@drawable/btn_login_bg"
         android:text="@string/activity_login_et_btn_login"
         android:textColor="@color/white"
