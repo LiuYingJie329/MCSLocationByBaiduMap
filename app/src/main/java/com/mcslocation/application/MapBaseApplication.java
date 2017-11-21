@@ -39,6 +39,8 @@ public class MapBaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        mapBaseApplicationInstance = this;
+
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(mapBaseApplicationInstance,"og9iakzRMjvfAvgr3JDAaKJu-gzGzoHsz","31HdOiQbWLwevJ3VbYmQ4ByQ");
         // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
@@ -87,12 +89,9 @@ public class MapBaseApplication extends Application {
 
     public MapBaseApplication(){
         super();
-        mapBaseApplicationInstance = this;
     }
-    public static synchronized MapBaseApplication getMapBaseApplicationInstance(){
-        if(mapBaseApplicationInstance == null){
-            mapBaseApplicationInstance = new MapBaseApplication();
-        }
+    public static  MapBaseApplication getMapBaseApplicationInstance(){
+
         return mapBaseApplicationInstance;
     }
 
