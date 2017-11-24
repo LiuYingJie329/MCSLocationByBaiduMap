@@ -96,5 +96,32 @@ public class DateUtil {
         }
         return millis;
     }
+    /**
+     *获取当前时间为星期几
+     * @return 返回当前星期几
+     */
+    public static int getWeek(){
+        Calendar calendar = Calendar.getInstance();
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (week){
+            case 1:
+                return 1;
+            case 2:
+                return 2;
+            case 3:
+                return 3;
+            case 4:
+                return 4;
+            case 5:
+                return 5;
+            case 6:
+                return 6;
+            case 7:
+                return 7;
+            default:
+                return 0;
+        }
+    }
+
 
 }

@@ -18,7 +18,9 @@ import com.mcslocation.greendao.mapdetails;
 import com.mcslocation.mapdetailsDao;
 import com.mcslocation.tools.DateUtil;
 import com.mcslocation.tools.Rx.RxDeviceTool;
+import com.mcslocation.tools.Rx.RxLocationTool;
 import com.mcslocation.tools.Rx.RxNetTool;
+import com.mcslocation.tools.Rx.RxToast;
 import com.mcslocation.tools.TimeFormatUtils;
 
 import java.util.ArrayList;
@@ -73,12 +75,12 @@ public class LocationService extends Service {
 
     @Override
     public void onDestroy() {
+        super.onDestroy();
         locationService.unregisterListener(mListener); //注销掉监听
         locationService.stop(); //停止定位服务
         // 重启自己
         Intent intent = new Intent(getApplicationContext(), LocationService.class);
         startService(intent);
-        super.onDestroy();
     }
 
     private BDAbstractLocationListener mListener = new BDAbstractLocationListener() {
@@ -105,7 +107,11 @@ public class LocationService extends Service {
                     mapdetail.setDistrict(location.getDistrict());// 区
                     mapdetail.setStreet(location.getStreet());// 街道
                     mapdetail.setAddrStr(location.getAddrStr());// 地址信息
-                    mapdetail.setUserIndoorState(location.getUserIndoorState());// 返回用户室内外判断结果
+                    // 返回用户室内外判断结果
+                    //1----#USER_INDDOR_TRUE,
+                    //0--- #USER_INDOOR_FALSE,
+                    //-1--- #USER_INDOOR_UNKNOW
+                    mapdetail.setUserIndoorState(location.getUserIndoorState());
                     mapdetail.setLocationDescribe(location.getLocationDescribe());// 位置语义化信息
                     if (location.getPoiList() != null && !location.getPoiList().isEmpty()) {
                         for (int i = 0; i < location.getPoiList().size(); i++) {
@@ -114,13 +120,56 @@ public class LocationService extends Service {
                         }
                     }
                     mapdetail.setPoiList(PoiList.toString());
+
+                    //返回是否支持室内定位
+                    //2--#INDOOR_LOCATION_NEARBY_SURPPORT_TRUE,
+                    //0--#INDOOR_LOCATION_SURPPORT_FALSE,#INDOOR_LOCATION_SURPPORT_UNKNOWN
+                    mapdetail.setIndoorLocationSurpport(location.getIndoorLocationSurpport());
+                    //返回支持的室内定位类型
+                    //1---#INDOOR_LOCATION_SOURCE_WIFI,
+                    //4---#INDOOR_LOCATION_SOURCE_BLUETOOTH,
+                    //2--#INDOOR_LOCATION_SOURCE_MAGNETIC,
+                    //8--#INDOOR_LOCATION_SOURCE_SMALLCELLSTATION,
+                    //0--#INDOOR_LOCATION_SOURCE_UNKNOWN
+                    mapdetail.setIndoorLocationSource(location.getIndoorLocationSource());
+                    //返回室内定位网络状态
+                    //2--#INDOOR_NETWORK_STATE_HIGH,
+                    //0--#INDOOR_NETWORK_STATE_LOW,
+                    //1--#INDOOR_NETWORK_STATE_MIDDLE
+                    mapdetail.setIndoorNetworkState(location.getIndoorNetworkState());
+                    //返回支持室内定位的building名称
+                    mapdetail.setIndoorLocationSurpportBuidlingName(location.getIndoorLocationSurpportBuidlingName());
+                    //是否处于室内定位模式
+                    mapdetail.setIndoorLocMode(location.isIndoorLocMode()+"");
+                    //获取buildingname信息，目前只在百度支持室内定位的地方有返回，默认null
+                    mapdetail.setBuildingName(location.getBuildingName());
+                    //获取楼层信息，目前只在百度支持室内定位的地方有返回，默认null
+                    mapdetail.setFloor(location.getFloor());
                     if (location.getLocType() == BDLocation.TypeGpsLocation) {
+
+                        //如果是GPS位置，获得当前由百度自有算法判断的GPS质量,
+                        //1---#GPS_ACCURACY_GOOD ,
+                        //2---#GPS_ACCURACY_MID,
+                        //3-- #GPS_ACCURACY_BAD
+                        //0--#GPS_ACCURACY_UNKNOWN
+                        mapdetail.setGpsAccuracyStatus(location.getGpsAccuracyStatus());
                         // GPS定位结果
                         mapdetail.setDescribe("gps定位成功");
                     } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
                         // 网络定位结果
                         // 运营商信息
+                        //0--OPERATORS_TYPE_UNKONW : 未知运营商;
+                        //1--OPERATORS_TYPE_MOBILE : 中国移动；
+                        //2--OPERATORS_TYPE_UNICOM : 中国联通；
+                        //3--OPERATORS_TYPE_TELECOMU : 中国电信
                         mapdetail.setOperators(location.getOperators());// 运营商信息
+
+                        //在网络定位结果的情况下，获取网络定位结果是通过基站定位得到的还是通过wifi定位得到的还是GPS得结果
+                        String networktype = location.getNetworkLocationType();
+                        mapdetail.setNetworktype(location.getNetworkLocationType());
+                        //获取定位类型相关描述信息
+                        location.getLocTypeDescription();
+
                         mapdetail.setDescribe("网络定位成功");
                     } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
                         // 离线定位结果
@@ -134,7 +183,7 @@ public class LocationService extends Service {
                     }
                     mapdetail.setIsNetAble((RxNetTool.isConnected(getApplicationContext()) + "").contains("true") ? "Net true" : "Net false");//判断网络是否连接
                     mapdetail.setIsWifiAble((RxNetTool.isWifi(getApplicationContext()) + "").contains("true") ? "Wifi true" : "Wifi false");//判断网络连接方式是否为WIFI
-                    mapdetail.setGPSStatus((RxNetTool.isGpsEnabled(getApplicationContext()) + "").contains("true") ? "GPS true" : "GPS false");//GPS是否打开
+                    mapdetail.setGPSStatus((RxLocationTool.isGpsEnabled(getApplicationContext()) + "").contains("true") ? "GPS true" : "GPS false");//GPS是否打开
                     mapDao.insert(mapdetail);
                     Message msg = new Message();
                     msg.obj = mapdetail;

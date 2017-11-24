@@ -56,13 +56,35 @@ public class mapdetails {
     private String isWifiAble;
     //GPS是否打开
     private String GPSStatus;
-    @Generated(hash = 2090556396)
+    //返回是否支持室内定位
+    private int IndoorLocationSurpport;
+    //返回支持的室内定位类型
+    private int IndoorLocationSource;
+    //返回室内定位网络状态
+    private int IndoorNetworkState;
+    //返回支持室内定位的building名称
+    private String IndoorLocationSurpportBuidlingName;
+    //是否处于室内定位模式
+    private String IndoorLocMode;
+    //获取buildingname信息
+    private String BuildingName;
+    //获取楼层信息
+    private String Floor;
+    //如果是GPS位置，获得当前由百度自有算法判断的GPS质量
+    private int GpsAccuracyStatus;
+    //在网络定位结果的情况下，获取网络定位结果是通过基站定位得到的还是通过wifi定位得到的还是GPS得结果
+    private String networktype;
+    @Generated(hash = 217182704)
     public mapdetails(Long id, String Success, String PhoneName, String PhoneNumber,
             String DataTime, String ClientTime, String ServerTime, int LocType,
             double Latitude, double Longitude, float Radius, String City,
             String District, String Street, String AddrStr, int UserIndoorState,
             String LocationDescribe, String PoiList, int Operators, String describe,
-            String isNetAble, String isWifiAble, String GPSStatus) {
+            String isNetAble, String isWifiAble, String GPSStatus,
+            int IndoorLocationSurpport, int IndoorLocationSource,
+            int IndoorNetworkState, String IndoorLocationSurpportBuidlingName,
+            String IndoorLocMode, String BuildingName, String Floor,
+            int GpsAccuracyStatus, String networktype) {
         this.id = id;
         this.Success = Success;
         this.PhoneName = PhoneName;
@@ -86,6 +108,15 @@ public class mapdetails {
         this.isNetAble = isNetAble;
         this.isWifiAble = isWifiAble;
         this.GPSStatus = GPSStatus;
+        this.IndoorLocationSurpport = IndoorLocationSurpport;
+        this.IndoorLocationSource = IndoorLocationSource;
+        this.IndoorNetworkState = IndoorNetworkState;
+        this.IndoorLocationSurpportBuidlingName = IndoorLocationSurpportBuidlingName;
+        this.IndoorLocMode = IndoorLocMode;
+        this.BuildingName = BuildingName;
+        this.Floor = Floor;
+        this.GpsAccuracyStatus = GpsAccuracyStatus;
+        this.networktype = networktype;
     }
     @Generated(hash = 1849985267)
     public mapdetails() {
@@ -227,6 +258,61 @@ public class mapdetails {
     }
     public void setDataTime(String DataTime) {
         this.DataTime = DataTime;
+    }
+    public int getIndoorLocationSurpport() {
+        return this.IndoorLocationSurpport;
+    }
+    public void setIndoorLocationSurpport(int IndoorLocationSurpport) {
+        this.IndoorLocationSurpport = IndoorLocationSurpport;
+    }
+    public int getIndoorLocationSource() {
+        return this.IndoorLocationSource;
+    }
+    public void setIndoorLocationSource(int IndoorLocationSource) {
+        this.IndoorLocationSource = IndoorLocationSource;
+    }
+    public int getIndoorNetworkState() {
+        return this.IndoorNetworkState;
+    }
+    public void setIndoorNetworkState(int IndoorNetworkState) {
+        this.IndoorNetworkState = IndoorNetworkState;
+    }
+    public String getIndoorLocationSurpportBuidlingName() {
+        return this.IndoorLocationSurpportBuidlingName;
+    }
+    public void setIndoorLocationSurpportBuidlingName(
+            String IndoorLocationSurpportBuidlingName) {
+        this.IndoorLocationSurpportBuidlingName = IndoorLocationSurpportBuidlingName;
+    }
+    public String getIndoorLocMode() {
+        return this.IndoorLocMode;
+    }
+    public void setIndoorLocMode(String IndoorLocMode) {
+        this.IndoorLocMode = IndoorLocMode;
+    }
+    public String getBuildingName() {
+        return this.BuildingName;
+    }
+    public void setBuildingName(String BuildingName) {
+        this.BuildingName = BuildingName;
+    }
+    public String getFloor() {
+        return this.Floor;
+    }
+    public void setFloor(String Floor) {
+        this.Floor = Floor;
+    }
+    public int getGpsAccuracyStatus() {
+        return this.GpsAccuracyStatus;
+    }
+    public void setGpsAccuracyStatus(int GpsAccuracyStatus) {
+        this.GpsAccuracyStatus = GpsAccuracyStatus;
+    }
+    public String getNetworktype() {
+        return this.networktype;
+    }
+    public void setNetworktype(String networktype) {
+        this.networktype = networktype;
     }
 
 }

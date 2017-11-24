@@ -47,6 +47,15 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         public final static Property IsNetAble = new Property(20, String.class, "isNetAble", false, "IS_NET_ABLE");
         public final static Property IsWifiAble = new Property(21, String.class, "isWifiAble", false, "IS_WIFI_ABLE");
         public final static Property GPSStatus = new Property(22, String.class, "GPSStatus", false, "GPSSTATUS");
+        public final static Property IndoorLocationSurpport = new Property(23, int.class, "IndoorLocationSurpport", false, "INDOOR_LOCATION_SURPPORT");
+        public final static Property IndoorLocationSource = new Property(24, int.class, "IndoorLocationSource", false, "INDOOR_LOCATION_SOURCE");
+        public final static Property IndoorNetworkState = new Property(25, int.class, "IndoorNetworkState", false, "INDOOR_NETWORK_STATE");
+        public final static Property IndoorLocationSurpportBuidlingName = new Property(26, String.class, "IndoorLocationSurpportBuidlingName", false, "INDOOR_LOCATION_SURPPORT_BUIDLING_NAME");
+        public final static Property IndoorLocMode = new Property(27, String.class, "IndoorLocMode", false, "INDOOR_LOC_MODE");
+        public final static Property BuildingName = new Property(28, String.class, "BuildingName", false, "BUILDING_NAME");
+        public final static Property Floor = new Property(29, String.class, "Floor", false, "FLOOR");
+        public final static Property GpsAccuracyStatus = new Property(30, int.class, "GpsAccuracyStatus", false, "GPS_ACCURACY_STATUS");
+        public final static Property Networktype = new Property(31, String.class, "networktype", false, "NETWORKTYPE");
     }
 
 
@@ -84,7 +93,16 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
                 "\"DESCRIBE\" TEXT," + // 19: describe
                 "\"IS_NET_ABLE\" TEXT," + // 20: isNetAble
                 "\"IS_WIFI_ABLE\" TEXT," + // 21: isWifiAble
-                "\"GPSSTATUS\" TEXT);"); // 22: GPSStatus
+                "\"GPSSTATUS\" TEXT," + // 22: GPSStatus
+                "\"INDOOR_LOCATION_SURPPORT\" INTEGER NOT NULL ," + // 23: IndoorLocationSurpport
+                "\"INDOOR_LOCATION_SOURCE\" INTEGER NOT NULL ," + // 24: IndoorLocationSource
+                "\"INDOOR_NETWORK_STATE\" INTEGER NOT NULL ," + // 25: IndoorNetworkState
+                "\"INDOOR_LOCATION_SURPPORT_BUIDLING_NAME\" TEXT," + // 26: IndoorLocationSurpportBuidlingName
+                "\"INDOOR_LOC_MODE\" TEXT," + // 27: IndoorLocMode
+                "\"BUILDING_NAME\" TEXT," + // 28: BuildingName
+                "\"FLOOR\" TEXT," + // 29: Floor
+                "\"GPS_ACCURACY_STATUS\" INTEGER NOT NULL ," + // 30: GpsAccuracyStatus
+                "\"NETWORKTYPE\" TEXT);"); // 31: networktype
     }
 
     /** Drops the underlying database table. */
@@ -187,6 +205,35 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         if (GPSStatus != null) {
             stmt.bindString(23, GPSStatus);
         }
+        stmt.bindLong(24, entity.getIndoorLocationSurpport());
+        stmt.bindLong(25, entity.getIndoorLocationSource());
+        stmt.bindLong(26, entity.getIndoorNetworkState());
+ 
+        String IndoorLocationSurpportBuidlingName = entity.getIndoorLocationSurpportBuidlingName();
+        if (IndoorLocationSurpportBuidlingName != null) {
+            stmt.bindString(27, IndoorLocationSurpportBuidlingName);
+        }
+ 
+        String IndoorLocMode = entity.getIndoorLocMode();
+        if (IndoorLocMode != null) {
+            stmt.bindString(28, IndoorLocMode);
+        }
+ 
+        String BuildingName = entity.getBuildingName();
+        if (BuildingName != null) {
+            stmt.bindString(29, BuildingName);
+        }
+ 
+        String Floor = entity.getFloor();
+        if (Floor != null) {
+            stmt.bindString(30, Floor);
+        }
+        stmt.bindLong(31, entity.getGpsAccuracyStatus());
+ 
+        String networktype = entity.getNetworktype();
+        if (networktype != null) {
+            stmt.bindString(32, networktype);
+        }
     }
 
     @Override
@@ -283,6 +330,35 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         if (GPSStatus != null) {
             stmt.bindString(23, GPSStatus);
         }
+        stmt.bindLong(24, entity.getIndoorLocationSurpport());
+        stmt.bindLong(25, entity.getIndoorLocationSource());
+        stmt.bindLong(26, entity.getIndoorNetworkState());
+ 
+        String IndoorLocationSurpportBuidlingName = entity.getIndoorLocationSurpportBuidlingName();
+        if (IndoorLocationSurpportBuidlingName != null) {
+            stmt.bindString(27, IndoorLocationSurpportBuidlingName);
+        }
+ 
+        String IndoorLocMode = entity.getIndoorLocMode();
+        if (IndoorLocMode != null) {
+            stmt.bindString(28, IndoorLocMode);
+        }
+ 
+        String BuildingName = entity.getBuildingName();
+        if (BuildingName != null) {
+            stmt.bindString(29, BuildingName);
+        }
+ 
+        String Floor = entity.getFloor();
+        if (Floor != null) {
+            stmt.bindString(30, Floor);
+        }
+        stmt.bindLong(31, entity.getGpsAccuracyStatus());
+ 
+        String networktype = entity.getNetworktype();
+        if (networktype != null) {
+            stmt.bindString(32, networktype);
+        }
     }
 
     @Override
@@ -315,7 +391,16 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
             cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19), // describe
             cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20), // isNetAble
             cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21), // isWifiAble
-            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22) // GPSStatus
+            cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22), // GPSStatus
+            cursor.getInt(offset + 23), // IndoorLocationSurpport
+            cursor.getInt(offset + 24), // IndoorLocationSource
+            cursor.getInt(offset + 25), // IndoorNetworkState
+            cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26), // IndoorLocationSurpportBuidlingName
+            cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27), // IndoorLocMode
+            cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28), // BuildingName
+            cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29), // Floor
+            cursor.getInt(offset + 30), // GpsAccuracyStatus
+            cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31) // networktype
         );
         return entity;
     }
@@ -345,6 +430,15 @@ public class mapdetailsDao extends AbstractDao<mapdetails, Long> {
         entity.setIsNetAble(cursor.isNull(offset + 20) ? null : cursor.getString(offset + 20));
         entity.setIsWifiAble(cursor.isNull(offset + 21) ? null : cursor.getString(offset + 21));
         entity.setGPSStatus(cursor.isNull(offset + 22) ? null : cursor.getString(offset + 22));
+        entity.setIndoorLocationSurpport(cursor.getInt(offset + 23));
+        entity.setIndoorLocationSource(cursor.getInt(offset + 24));
+        entity.setIndoorNetworkState(cursor.getInt(offset + 25));
+        entity.setIndoorLocationSurpportBuidlingName(cursor.isNull(offset + 26) ? null : cursor.getString(offset + 26));
+        entity.setIndoorLocMode(cursor.isNull(offset + 27) ? null : cursor.getString(offset + 27));
+        entity.setBuildingName(cursor.isNull(offset + 28) ? null : cursor.getString(offset + 28));
+        entity.setFloor(cursor.isNull(offset + 29) ? null : cursor.getString(offset + 29));
+        entity.setGpsAccuracyStatus(cursor.getInt(offset + 30));
+        entity.setNetworktype(cursor.isNull(offset + 31) ? null : cursor.getString(offset + 31));
      }
     
     @Override

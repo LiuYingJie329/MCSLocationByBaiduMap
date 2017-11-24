@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
@@ -28,11 +29,14 @@ import com.mcslocation.save.utils.ScreenManager;
 import com.mcslocation.tools.CheckPermissionsActivity;
 import com.mcslocation.tools.DateUtil;
 import com.mcslocation.tools.Rx.RxActivityTool;
+import com.mcslocation.tools.Rx.RxAppTool;
 import com.mcslocation.tools.Rx.RxBroadcastTool;
 import com.mcslocation.tools.Rx.RxDeviceTool;
+import com.mcslocation.tools.Rx.RxLocationTool;
 import com.mcslocation.tools.Rx.RxNetTool;
 import com.mcslocation.tools.Rx.RxSPTool;
 import com.mcslocation.tools.Rx.RxToast;
+import com.mcslocation.tools.TimeFormatUtils;
 import com.xdandroid.hellodaemon.IntentWrapper;
 
 import java.util.List;
@@ -62,6 +66,10 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     public static final int upMapDateUnActive = 4;//被动上传昨日数据
     private long firstTime = 0;
     private Button btn_quit, btn_update;
+    private TextView appVersion;
+    private String phonename = null;
+    private String phoneNumber = null;
+
     private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
         @Override
         public void onSreenOn() {
@@ -119,7 +127,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (Contants.DEBUG)
-            Log.d(TAG, "MCS-MainActivity-->onCreate");
+            Log.e(TAG, "MCS-MainActivity-->onCreate");
         mContext = this;
         // 1. 注册锁屏广播监听器
         mScreenListener = new ScreenReceiverUtil(this);
@@ -130,9 +138,11 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
             mJobManager.startJobScheduler();
         }
+        String Gps = ((RxLocationTool.isGpsEnabled(getApplicationContext()) + "").contains("true") ? "GPS true" : "GPS false");//GPS是否打开
+        Log.d(TAG,"GPS是否打开-----"+Gps);
 
-        initData();
         initViews();
+        initData();
 
         mHandler = new Handler() {
             @Override
@@ -142,24 +152,24 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
                         RxToast.success("定位成功");
                         break;
                     case quit:
-                        AVObject Object = new AVObject("MCSLocation");
-                        Object.put("Success", "Quit");
-                        Object.saveInBackground(new SaveCallback() {
-                            @Override
-                            public void done(AVException e) {
-                                if (e == null) {
-
-                                }
-                            }
-                        });
+                        mapdetails mapdetail = new mapdetails();
+                        mapdetail.setSuccess("Quit");   //请求成功
+                        mapdetail.setPhoneName(phoneNumber); //设备的手机号码
+                        mapdetail.setPhoneName(phonename);  //设备名称
+                        mapdetail.setDataTime(DateUtil.getCurrentTime_Y_M_d());//客户端设备时间
+                        mapdetail.setClientTime(TimeFormatUtils.formatUTC(System.currentTimeMillis(), "yyyy-MM-dd HH:mm:ss")); //手机端请求时间
+                        mapdetail.setIsNetAble((RxNetTool.isConnected(getApplicationContext()) + "").contains("true") ? "Net true" : "Net false");//判断网络是否连接
+                        mapdetail.setIsWifiAble((RxNetTool.isWifi(getApplicationContext()) + "").contains("true") ? "Wifi true" : "Wifi false");//判断网络连接方式是否为WIFI
+                        mapdetail.setGPSStatus((RxLocationTool.isGpsEnabled(getApplicationContext()) + "").contains("true") ? "GPS true" : "GPS false");//GPS是否打开
+                        mapDao.insert(mapdetail);
                         break;
                     case upMapDateActive:
                         UpDateYesterdayData(MainActivity.upMapDateActive);
-                        Log.d(TAG, "mHandler-----UpDateYesterdayData-------主动上传数据");
+                        Log.e(TAG, "mHandler-----UpDateYesterdayData-------主动上传数据");
                         break;
                     case upMapDateUnActive:
                         UpDateYesterdayData(MainActivity.upMapDateUnActive);
-                        Log.d(TAG, "mHandler-----UpDateYesterdayData-------被动上传数据");
+                        Log.e(TAG, "mHandler-----UpDateYesterdayData-------被动上传数据");
                         break;
                     default:
                         break;
@@ -193,11 +203,21 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         mapObject.put("isNetAble", detail.getIsNetAble());
         mapObject.put("isWifiAble", detail.getIsWifiAble());
         mapObject.put("GPSStatus", detail.getGPSStatus());
+        mapObject.put("IndoorLocationSurpport", detail.getIndoorLocationSurpport());
+        mapObject.put("IndoorLocationSource", detail.getIndoorLocationSource());
+        mapObject.put("IndoorNetworkState", detail.getIndoorNetworkState());
+        mapObject.put("IndoorLocationSurpportBuidlingName", detail.getIndoorLocationSurpportBuidlingName());
+        mapObject.put("IndoorLocMode", detail.getIndoorLocMode());
+        mapObject.put("BuildingName", detail.getBuildingName());
+        mapObject.put("Floor", detail.getFloor());
+        mapObject.put("GpsAccuracyStatus", detail.getGpsAccuracyStatus());
+        mapObject.put("networktype", detail.getNetworktype());
+
         mapObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(AVException e) {
                 if (e == null) {
-                    RxToast.success("数据上传成功");
+                    RxToast.success("昨日数据上传成功");
                     RxSPTool.putString(MapBaseApplication.getMapBaseApplicationInstance(), DateUtil.getYesterdayTime_Y_M_d(), "UpSuccess");
                 }
             }
@@ -208,9 +228,17 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     private void initData() {
         String upYesterday = RxSPTool.getString(MapBaseApplication.getMapBaseApplicationInstance(), DateUtil.getYesterdayTime_Y_M_d());
         if (RxDeviceTool.isNullString(upYesterday) ) {
-            Log.d(TAG, "用户第一次安装,昨天和今天上传数据的状态都为空");
+            Log.e(TAG, "用户第一次安装,昨天和今天上传数据的状态都为空");
             RxSPTool.putString(MapBaseApplication.getMapBaseApplicationInstance(), DateUtil.getYesterdayTime_Y_M_d(), "NoUpDate");
         }
+        try {
+            phonename = RxDeviceTool.getUniqueSerialNumber() + "";
+            phoneNumber = RxDeviceTool.getLine1Number(getApplicationContext());
+        } catch (Exception e) {
+            phoneNumber = "";
+        }
+        String appversion = RxAppTool.getAppVersionName(MapBaseApplication.getMapBaseApplicationInstance());
+        appVersion.setText("MCS Version:"+appversion);
     }
 
     private void UpDateYesterdayData(int type) {
@@ -218,16 +246,18 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             RxToast.error("上传数据请保持网络畅通");
             return;
         }
-        Log.d(TAG,"------昨天的日期为"+DateUtil.getYesterdayTime_Y_M_d());
-        Log.d(TAG,"------今天的日期为"+DateUtil.getCurrentTime_Y_M_d());
+        Log.e(TAG,"------昨天的日期为"+DateUtil.getYesterdayTime_Y_M_d());
+        Log.e(TAG,"------今天的日期为"+DateUtil.getCurrentTime_Y_M_d());
+        List<mapdetails> list2 = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.isNotNull()).build().list();
         List<mapdetails> list = mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getYesterdayTime_Y_M_d())).build().list();
         Log.e(TAG, "------------>昨天的数据库的数量为：" + list.size());
         Log.e(TAG, "------------>今天的数据库的数量为：" + mapDao.queryBuilder().where(mapdetailsDao.Properties.DataTime.like(DateUtil.getCurrentTime_Y_M_d())).build().list().size());
+        Log.e(TAG,"--------->数据库的所有数据的数量为"+list2.size());
         if (list.size() != 0) {
             if (type == 3) {
-                Log.d(TAG, "UpDateYesterdayData-------今天第一次登录-------主动上传数据");
+                Log.e(TAG, "UpDateYesterdayData-------程序每次打开------主动上传数据");
                 if (RxSPTool.getString(MapBaseApplication.getMapBaseApplicationInstance(), DateUtil.getYesterdayTime_Y_M_d()).contains("UpSuccess")) {
-                    Log.d(TAG, "type=3 ------ 昨日数据上传成功,无须再次上传");
+                    Log.e(TAG, "type=3 ------ 昨日数据上传成功,无须再次上传");
                 } else {
                     for (mapdetails data : list) {
                         UpdataByNet(data);
@@ -235,7 +265,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
                 }
             }
             if (type == 4) {
-                Log.d(TAG, "UpDateYesterdayData-------用户点击上传按钮------被动上传数据");
+                Log.e(TAG, "UpDateYesterdayData-------用户点击上传按钮------被动上传数据");
                 if (RxSPTool.getString(MapBaseApplication.getMapBaseApplicationInstance(), DateUtil.getYesterdayTime_Y_M_d()).contains("UpSuccess")) {
                     RxToast.info("昨日数据上传成功,无须再次上传");
                 } else {
@@ -245,7 +275,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
                 }
             }
         } else {
-            Log.d(TAG, "------昨天的数据库的数量为0");
+            Log.e(TAG, "------昨天的数据库的数量为0");
         }
     }
 
@@ -253,14 +283,25 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     protected void onStart() {
         super.onStart();
         if (Contants.DEBUG)
-            Log.d(TAG, "MCS-MainActivity-->onStart");
+            Log.e(TAG, "MCS---MainActivity-->onStart");
         //RxTools网络监测广播
         broadcastReceiverNetWork = RxBroadcastTool.initRegisterReceiverNetWork(mContext);
 
-        if (isTodayFirstLogin() && RxNetTool.isConnected(mContext)) {
+        //周一或周五提醒一次
+        int date = DateUtil.getWeek();
+        if(date == 1 || date ==5){
             IntentWrapper.whiteListMatters(this, "MCS实验系统持续运行");
         }
 
+//        if(isTodayFirstLogin()){
+//            RxToast.info("程序今天首次启动,5秒后上传首次数据,请保持网络畅通");
+//        }
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        },5000);
         mHandler.sendMessage(Message.obtain(mHandler, MainActivity.upMapDateActive));
 
     }
@@ -287,7 +328,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     @Override
     protected void onDestroy() {
         if (Contants.DEBUG)
-            Log.d(TAG, "MCS-MainActivity-->onDestroy");
+            Log.e(TAG, "MCS-MainActivity-->onDestroy");
         super.onDestroy();
     }
 
@@ -306,6 +347,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         btn_update = (Button) findViewById(R.id.btn_updata);
         btn_quit.setOnClickListener(this);
         btn_update.setOnClickListener(this);
+        appVersion = (TextView)findViewById(R.id.tx_app);
     }
 
     @Override
@@ -317,7 +359,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             case R.id.btn_quit:
                 long secondTime = System.currentTimeMillis();
                 if (secondTime - firstTime < 2000) {
-                    RxActivityTool.finishAllActivity();
+                    RxActivityTool.finishActivity(MainActivity.class);
                     mHandler.sendMessage(Message.obtain(mHandler, MainActivity.quit));
                 } else {
                     RxToast.info("再按一次退出程序");
@@ -326,4 +368,5 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
                 break;
         }
     }
+
 }

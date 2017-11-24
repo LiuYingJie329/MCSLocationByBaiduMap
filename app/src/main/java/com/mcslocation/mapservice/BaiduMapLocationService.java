@@ -69,7 +69,10 @@ public class BaiduMapLocationService {
         return DIYoption;
     }
     /***
-     *
+     *定位模式 分为高精度定位模式 低功耗定位模式 仅设备定位模式
+     * 高精度定位模式：这种定位模式下，会同时使用网络定位和GPS定位，优先返回最高精度的定位结果；
+     * 低功耗定位模式：这种定位模式下，不会使用GPS，只会使用网络定位（Wi-Fi和基站定位）
+     * 仅用设备定位模式：这种定位模式下，不需要连接网络，只使用GPS进行定位，这种模式下不支持室内环境的定位
      * @return DefaultLocationClientOption
      */
     public LocationClientOption getDefaultLocationClientOption(){
