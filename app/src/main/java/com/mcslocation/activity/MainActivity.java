@@ -1,8 +1,11 @@
 package com.mcslocation.activity;
 
+import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +42,14 @@ import com.mcslocation.tools.Rx.RxToast;
 import com.mcslocation.tools.TimeFormatUtils;
 import com.xdandroid.hellodaemon.IntentWrapper;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /*
  *单点定位
@@ -69,6 +79,9 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     private TextView appVersion;
     private String phonename = null;
     private String phoneNumber = null;
+    private static final String CHECK_OP_NO_THROW = "checkOpNoThrow";
+    private static final String OP_POST_NOTIFICATION = "OP_POST_NOTIFICATION";
+    public static boolean isForeground = false;
 
     private ScreenReceiverUtil.SreenStateListener mScreenListenerer = new ScreenReceiverUtil.SreenStateListener() {
         @Override
@@ -138,12 +151,11 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
             mJobManager = JobSchedulerManager.getJobSchedulerInstance(this);
             mJobManager.startJobScheduler();
         }
-        String Gps = ((RxLocationTool.isGpsEnabled(getApplicationContext()) + "").contains("true") ? "GPS true" : "GPS false");//GPS是否打开
-        Log.d(TAG,"GPS是否打开-----"+Gps);
 
         initViews();
         initData();
 
+        isNotificationEnabled(MapBaseApplication.getMapBaseApplicationInstance());
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -282,26 +294,24 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     @Override
     protected void onStart() {
         super.onStart();
+        isForeground = true;
         if (Contants.DEBUG)
             Log.e(TAG, "MCS---MainActivity-->onStart");
         //RxTools网络监测广播
         broadcastReceiverNetWork = RxBroadcastTool.initRegisterReceiverNetWork(mContext);
 
         //周一或周五提醒一次
-        int date = DateUtil.getWeek();
-        if(date == 1 || date ==5){
-            IntentWrapper.whiteListMatters(this, "MCS实验系统持续运行");
+        String date = DateUtil.getWeek(new Date());
+        Log.d(TAG,"--------"+date);
+        if(isTodayFirstLogin()){
+            if(date.contains("Friday")){
+                IntentWrapper.whiteListMatters(this, "MCS实验系统持续运行");
+            }
+            if(date.contains("Monday")){
+                IntentWrapper.whiteListMatters(this, "MCS实验系统持续运行");
+            }
         }
 
-//        if(isTodayFirstLogin()){
-//            RxToast.info("程序今天首次启动,5秒后上传首次数据,请保持网络畅通");
-//        }
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        },5000);
         mHandler.sendMessage(Message.obtain(mHandler, MainActivity.upMapDateActive));
 
     }
@@ -310,16 +320,20 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
     protected void onResume() {
         super.onResume();
         isTodayFirstLogin();
+        isForeground = true;
+
     }
 
     @Override
     protected void onPause() {
+        isForeground = false;
         super.onPause();
         saveExitTime(todayTime);
     }
 
     @Override
     protected void onStop() {
+        isForeground = false;
         //RxTools销毁广播
         unregisterReceiver(broadcastReceiverNetWork);
         super.onStop();
@@ -327,6 +341,7 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
 
     @Override
     protected void onDestroy() {
+        isForeground = false;
         if (Contants.DEBUG)
             Log.e(TAG, "MCS-MainActivity-->onDestroy");
         super.onDestroy();
@@ -369,4 +384,107 @@ public class MainActivity extends CheckPermissionsActivity implements View.OnCli
         }
     }
 
+    /**
+     * 跳转到权限设置界面
+     */
+    private void getAppDetailSettingIntent(Context context){
+        Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if(Build.VERSION.SDK_INT >= 9){
+            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+        } else if(Build.VERSION.SDK_INT <= 8){
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName("com.android.settings","com.android.settings.InstalledAppDetails");
+            intent.putExtra("com.android.settings.ApplicationPkgName", getPackageName());
+
+        }
+        context.startActivity(intent);
+    }
+
+    public boolean isNotificationEnabled(final Context context){
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT ){
+            Log.i("11111","通知栏功能");
+        }else{
+            AppOpsManager mAppOps = (AppOpsManager) context.getSystemService(Context.APP_OPS_SERVICE);
+            ApplicationInfo appInfo = context.getApplicationInfo();
+            String pkg = context.getApplicationContext().getPackageName();
+            int uid = appInfo.uid;
+            Class appOpsClass = null;
+      		/* Context.APP_OPS_MANAGER */
+            try {
+                appOpsClass = Class.forName(AppOpsManager.class.getName());
+                Method checkOpNoThrowMethod = appOpsClass.getMethod(CHECK_OP_NO_THROW, Integer.TYPE, Integer.TYPE,
+                        String.class);
+                Field opPostNotificationValue = appOpsClass.getDeclaredField(OP_POST_NOTIFICATION);
+                int value = (Integer) opPostNotificationValue.get(Integer.class);
+                if((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED){
+                }else{
+                    showDialogs(MainActivity.this);
+                }
+                return ((Integer) checkOpNoThrowMethod.invoke(mAppOps, value, uid, pkg) == AppOpsManager.MODE_ALLOWED);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return false;
+    }
+
+    private void showDialogs( final Context mcontext) {
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("请开启通知栏")
+                .setContentText("点击确定 --> 自定义通知(或通知管理) --> 允许通知")
+                .setCancelText("取消")
+                .setConfirmText("确定")
+                .showCancelButton(true)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        // reuse previous dialog instance, keep widget user state, reset them if you need
+                        sDialog.setTitleText("取消了操作")
+                                .setContentText("为了更好的运行,请您保持开启")
+                                .setConfirmText("OK")
+                                .showCancelButton(false)
+                                .setCancelClickListener(null)
+                                .setConfirmClickListener(null)
+                                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismiss();
+                        getAppDetailSettingIntent(MapBaseApplication.getMapBaseApplicationInstance());
+                        if(isNotificationEnabled(MapBaseApplication.getMapBaseApplicationInstance()) && isForeground) {
+                            sDialog.setTitleText("完成")
+                                    .setContentText("操作完成")
+                                    .setConfirmText("OK")
+                                    .showCancelButton(false)
+                                    .setCancelClickListener(null)
+                                    .setConfirmClickListener(null)
+                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                        }
+                        else{
+                            sDialog.setTitleText("取消了操作")
+                                    .setContentText("为了更好的运行,请您保持开启")
+                                    .setConfirmText("OK")
+                                    .showCancelButton(false)
+                                    .setCancelClickListener(null)
+                                    .setConfirmClickListener(null)
+                                    .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                        }
+
+                    }
+                })
+                .show();
+    }
 }

@@ -24,19 +24,17 @@ android {
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0.1"
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             // 不显示Log
-            buildConfigField "boolean", "LOG_DEBUG", "true"
+            buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
             minifyEnabled false
             //Zipalign优化
             zipAlignEnabled true
-            // 移除无用的resource文件
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release // 签名配置
         }
@@ -45,7 +43,6 @@ android {
             //debug模式无需混淆 因此false
             minifyEnabled false
             zipAlignEnabled true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
         }
